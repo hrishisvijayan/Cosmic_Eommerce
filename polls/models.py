@@ -1,4 +1,3 @@
-from xml.etree.ElementTree import QName
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 

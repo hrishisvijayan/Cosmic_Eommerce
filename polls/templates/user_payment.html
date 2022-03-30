@@ -166,7 +166,7 @@
       <div class="row">
         <div class="col-md-4 d-flex ">
         {% for i in addr %} 
-        <div class="col-md-6 " >
+        <div class="col-md-6 " id="div{{i.id}}">
           <div class="card text-center ">
             <h3 style="text-transform: capitalize;">
               <br>
@@ -181,7 +181,7 @@
             <br>
             <p style="text-transform: capitalize;">phone   :{{i.phone}}</p>
             <br>
-            <center> <div class="col-10 btn btn-danger mb-2" id="delete" data-address="{{ i.id }}">Delete</div> </center>
+             <center> <button class="col-10 btn btn-danger mb-2 delete"  data-address="{{ i.id }}"   > Delete </button> </center> 
           </div>
         </div>
         {% endfor %}
@@ -288,7 +288,7 @@
 
                         <div class="col-md-8 p-5 bg-light">
                           <div class="card">
-                          <form action="" method="POST">
+                          <form action="{% url 'add_address' %}" method="POST">
                             {% csrf_token %}
                             {{form}}
                             <button class="btn btn-dark rounded w-25" type="submit">Submit</button>
@@ -774,7 +774,7 @@
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script src="https://www.paypal.com/sdk/js?client-id=AeS1O53pS0XIj2PQq6VCwSi4eTAhyFwrm04d-I8l8sYKaPdVOOFPq87afE5QgTGDQM6jd-K01_5Mu2p-&currency=USD" data-sdk-integration-source="button-factory"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!--salmu code starts from here -->
 
 
@@ -1165,9 +1165,11 @@ if (response.status=='error'){
 
 
 
-<script>
+<!-- <script>
   $(document).ready(function(){
-      $('#delete').click(function(){
+   
+      $('.delete').click(function(){
+        alert('this is address delete')
           $.ajax({
               url: '{% url  "dlt_address" %}',
               data:{
@@ -1179,8 +1181,67 @@ if (response.status=='error'){
           })
       })
   })
+</script> -->
+
+
+<script>
+
+  $(document).ready(function () {
+    $(".delete").click(function () {
+      swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this  file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+    
+          $.ajax({
+            url: '{% url  "dlt_address" %}',
+            data: {
+                add_id: $(this).data("address"),
+            },
+            success: function (response) {
+                $('#div'+response.id).remove()
+            },
+        });
+     
+
+        } else {
+          swal("Your file is safe!");
+        }
+      });
+        
+    });
+  });
+
 </script>
 
+
+<script>
+  function two(url,e) {
+      e.preventDefault()
+      swal({
+          title: "Are you sure?",
+          text: "Once deleted, you will not be able to recover this  file!",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+      
+          window.location.href= url.href
+       
+
+          } else {
+            swal("Your file is safe!");
+          }
+        });
+}
+</script>
 
 
 

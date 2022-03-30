@@ -1309,6 +1309,31 @@ def address(request):
     form=MyAddressForm()
     return render(request,'user_address.html',{'form' : form})
 
+
+
+def editaddress(request,id=0):
+    if id ==0:
+        form=MyProductForm()
+    else:
+        product = Product.objects.get(id=id)
+        form=MyProductForm(instance= product)
+    context={'form':form}
+    if request.method == 'POST':
+        form = MyProductForm(request.POST,request.FILES,instance=product)  # here instance is given in order to edit the corresponding product 
+        if form.is_valid():
+            form.save()
+            return redirect('addproduct')
+    return render(request,'addproduct.html', context)
+
+
+
+
+
+
+
+
+
+
 # this is the thing that you are looking for as user_payment old version
 
 # def user_payment(request):
@@ -1341,12 +1366,20 @@ def address(request):
 
 
 def dlt_address(request):
+    print('here delete address')
     add_id = request.GET.get('add_id')
     Address.objects.filter(id=add_id).delete()
     return JsonResponse({'id':add_id})
 
 
-
+def add_address(request):
+    if request.method == 'POST':
+        form = MyAddressForm(request.POST,request.FILES)
+        if form.is_valid():
+            a=form.save(commit=False)
+            a.aname=request.user
+            a.save()
+    return redirect("user_payment")
 
 
 def user_payment(request):
@@ -1369,12 +1402,6 @@ def user_payment(request):
             items = []
             return redirect("user_checkout")
     form= MyAddressForm()
-    if request.method == 'POST':
-        form = MyAddressForm(request.POST,request.FILES)
-        if form.is_valid():
-            a=form.save(commit=False)
-            a.aname=request.user
-            a.save()
     addr = Address.objects.filter(aname=user)
     signupcoupens = user.signupcoupon_set.filter(available = True)
     coupens = Coupen.objects.filter(remaining__gt=0)

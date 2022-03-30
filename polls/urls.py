@@ -30,6 +30,7 @@ urlpatterns = [
     path('unblock',views.unblock,name='unblock'),
     path('addcart',views.addcart,name='addcart'),
     path('address',views.address,name='address'),
+    path('add_address',views.add_address,name='add_address'),
     path('user_payment',views.user_payment,name='user_payment'),
     path('order_by_paypal',views.order_by_paypal,name='order_by_paypal'),
     path('remove_order/<str:id>',views.remove_order,name='remove_order'),

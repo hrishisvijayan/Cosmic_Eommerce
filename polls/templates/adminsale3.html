@@ -1,0 +1,861 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="hero_area">
+  <!-- header section strats -->
+
+
+  <!--cart section start here-->
+  <div class="container my-5 ">
+    <!-- <div class="cart container-fluid m-0 p-3 mx-auto w-50">
+      <div class="cart-top d-flex justify-content-between p-3 " style="height: fit-content;">
+        <div>
+          <h2 class="cart-top-title p-0">Checkout</h2>
+        </div>
+        <div>
+          Quantity
+        </div>
+        <div class="cart-top-info">3 items</div>
+      </div>
+
+      <div class="cartcontent ">
+
+        <div class="d-flex justify-content-between p-3 ">
+        <div class="cart-item">
+          <span class="cart-item-pic">
+            <img src="http://upload.wikimedia.org/wikipedia/en/a/a7/Random_Access_Memories.jpg">
+          </span>
+          Item #1
+          <span class="cart-item-desc">Description</span>
+          <span class="cart-item-price">$16.80</span>
+          <a href=""> <button style="border-radius: 20px; background-color: yellow;">Remove</button> </a>
+        </div>
+
+        <div>
+          <div id="app bg-dark">
+            <div class="wrapper d-flex">
+                  <button class="btn btn--minus" @click="changeCounter('-1')" type="button" name="button">
+                  -
+                  </button>
+                  <input class="quantity w-25" type="text" name="name" :value="counter" >
+                  <button class="btn btn--plus" @click="changeCounter('1')" type="button" name="button">
+                    +
+                  </button>
+                </div>
+        
+          </div>
+        </div>
+        <div>
+          <a href=""> <button style="border-radius: 20px; background-color: yellow;">Remove</button> </a>
+
+        </div>
+      </div>
+
+        <div class="cart-bottom">
+          Total: $54.80
+          <a href="{% url 'address' %}" class="cart-button">Continue</a>
+        </div>
+      </div>
+    </div> -->
+
+
+
+
+
+
+
+   
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+    crossorigin="anonymous"></script>
+<!-- content -->
+
+
+
+
+<div class="" >
+  <!-- <h2 class="main-title m-2 ">Sales Table</h2> -->
+<form action="" method="post"style="background-color:gray;padding: 30px;">
+    {% csrf_token %}
+    <div class="row m-1 stat-cards">
+      <div class=" col-xl-4 mb-1 " >
+        <article class="stat-cards-item " >
+          
+
+          <div class="stat-cards-info " style="width: 100%;" >
+            <p class="stat-cards-info__num"><input type="text" class="ms-2" name="dates"  /></p>
+            <p class="stat-cards-info__title">SelectBy Range:</p>
+            <div class="d-flex " style="justify-content: space-between;">
+              <button class="btn btn-success m-1" style="width: 30%;" id="submit_date" type="submit">OK</button>
+              <!-- <a class="btn btn-danger m-1" style="width: 30%;" href="{% url 'adminsale' %}">RESET</a> -->
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class=" col-xl-4 mb-1" >
+        <article class="stat-cards-item">
+          
+          <div class="stat-cards-info" style="width: 100%;"  >
+            <p class="stat-cards-info__num"><select name="month" id="">
+              <option value="">---------</option>
+              {% for month in months %}
+              <option value="{{ forloop.counter }}">{{ month }}</option>
+              {% endfor %}
+            </select></p>
+            <p class="stat-cards-info__title">Select By Month :</p>
+            <div class="d-flex " style="justify-content: space-between;">
+              <button class="btn btn-success m-1" style="width: 30%;" id="submit_date" type="submit">OK</button>
+              <!-- <a class="btn btn-danger m-1" style="width: 30%;" href="{% url 'adminsale' %}">RESET</a> -->
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class=" col-xl-4 mb-1"  >
+        <article class="stat-cards-item"  >
+          
+          <div class="stat-cards-info" style="width: 100%;">
+            <p class="stat-cards-info__num"><select name="year" id="">
+              <option value="">---------</option>
+              {% for year in years %}
+              <option value="{{ year }}">{{ year }}</option>
+              {% endfor %}
+            </select></p>
+            <p class="stat-cards-info__title">Select By Year :</p>
+            <div class="d-flex " style="justify-content: space-between;">
+              <button class="btn btn-success m-1" style="width: 30%;" id="submit_date" type="submit">OK</button>
+              <!-- <a class="btn btn-danger m-1" style="width: 30%;" href="{% url 'adminsale' %}">RESET</a> -->
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+    
+</form>
+
+</div>
+
+<main class="main users chart-page" id="skip-target">
+  <div class="container ">
+   
+   
+      <div class="row" id="salestable" >
+
+      <div class="col-lg-12" >
+          <div class="table users-table table-wrapper"  >
+            
+            <div   >
+
+            
+              <table class="posts-table table " style="width:100%" >
+                <thead >
+                  <tr class="users-table-info">
+                    <th class="">
+                      
+                      User Id
+                      
+                    </th>
+                    <th>Customer Name</th>
+                    <th>Number of Products</th>
+                    <th>Ordered Date</th>
+                    <th>Amount</th>
+                    <th>Payment Type</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for data in order_data %}
+                  
+                  <tr>
+                    <td>
+                      
+                        {{data.id}}
+                      
+                    </td>
+                    <td>
+                      {{ data.order.user }}
+                    </td>
+                    <td>
+                      {{data.order.get_cart_items}}
+                    </td>
+                    <td>
+                      {{data.order.date_order}}
+                    </td>
+                    <td>
+                      {{data.order.payments.total_amount}}
+                    </td>
+                    <td>
+                      {{data.order.payments.payment_method}}
+                    </td> 
+                  </tr>
+                  
+                {% endfor %}
+                </tbody>
+              </table>
+            </div> 
+          </div>
+      </div>
+    </div>
+    <div class="row m-1 "> 
+      <div class="col-lg-4 mb-2" >
+          <a href="{% url 'export_csv' %}" style="width: 100%;" class="btn btn-secondary">Export CSV</a>
+      </div>
+      <div class="col-lg-4 mb-2">
+        <a href="{% url 'export_excel' %}" style="width: 100%;" class="btn btn-secondary">Export Excel</a>
+      </div>
+      <div class="col-lg-4  mb-2">
+      <button id="topdf" style="width: 100%;" class="btn bg-secondary btn-secondary">Export PDF</button>
+    </div>
+    
+  </div>
+  </div>
+</main>
+
+
+<script src="{% static 'admin/js/html2pdf.bundle.js' %}"></script>
+<script type="text/javascript">
+  document.getElementById('topdf').onclick = function () {
+      var element = document.getElementById('salestable');
+      html2pdf(element, {
+          margin: 10,
+          filename: 'SalesReport.pdf',
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2, logging: true, dpi: 192, letterRendering: true },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      });
+  };
+</script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<script>
+    $('input[name="dates"]').daterangepicker({
+      maxDate: moment(),
+      ignoreReadonly: true,
+      format:'dd/mm/yyyy',
+      allowInputToggle: true,
+      defaultDate: false,
+      useCurrent: false
+    }
+  );
+</script>
+
+
+
+
+
+
+
+
+<!-- ./ content -->     
+               
+  </div>
+
+
+
+ 
+
+
+
+
+
+  <!-- end header section -->
+  <!-- slider section -->
+
+
+  <!-- product section -->
+
+  <!-- client section -->
+  <!-- 
+  <section class="client_section layout_padding-bottom">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>
+          What Says Our Customers
+        </h2>
+      </div>
+    </div>
+    <div class="client_container ">
+      <div id="carouselExample2Controls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="container">
+              <div class="box">
+                <div class="detail-box">
+                  <p>
+                    <i class="fa fa-quote-left" aria-hidden="true"></i>
+                  </p>
+                  <p>
+                    It is a long established fact that a reader will be distracted by the readable content of a page
+                    when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
+                    distribution of letters, as opposed to using 'Content here, content here', making it lookIt is a
+                    long established fact that a reader will be distracted by the readable content of a page when
+                    looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
+                    distribution of letters, as opposed to using 'Content here, content here', making it look
+                  </p>
+                </div>
+                <div class="client-id">
+                  <div class="img-box">
+                    <img src="images/client.jpg" alt="">
+                  </div>
+                  <div class="name">
+                    <h5>
+                      James Dew
+                    </h5>
+                    <h6>
+                      Photographer
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="container">
+              <div class="box">
+                <div class="detail-box">
+                  <p>
+                    <i class="fa fa-quote-left" aria-hidden="true"></i>
+                  </p>
+                  <p>
+                    It is a long established fact that a reader will be distracted by the readable content of a page
+                    when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
+                    distribution of letters, as opposed to using 'Content here, content here', making it lookIt is a
+                    long established fact that a reader will be distracted by the readable content of a page when
+                    looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
+                    distribution of letters, as opposed to using 'Content here, content here', making it look
+                  </p>
+                </div>
+                <div class="client-id">
+                  <div class="img-box">
+                    <img src="images/client.jpg" alt="">
+                  </div>
+                  <div class="name">
+                    <h5>
+                      James Dew
+                    </h5>
+                    <h6>
+                      Photographer
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="container">
+              <div class="box">
+                <div class="detail-box">
+                  <p>
+                    <i class="fa fa-quote-left" aria-hidden="true"></i>
+                  </p>
+                  <p>
+                    It is a long established fact that a reader will be distracted by the readable content of a page
+                    when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
+                    distribution of letters, as opposed to using 'Content here, content here', making it lookIt is a
+                    long established fact that a reader will be distracted by the readable content of a page when
+                    looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
+                    distribution of letters, as opposed to using 'Content here, content here', making it look
+                  </p>
+                </div>
+                <div class="client-id">
+                  <div class="img-box">
+                    <img src="images/client.jpg" alt="">
+                  </div>
+                  <div class="name">
+                    <h5>
+                      James Dew
+                    </h5>
+                    <h6>
+                      Photographer
+                    </h6>
+                  </div>
+                </div>
+              </div> -->
+  <!-- </div>
+          </div>
+        </div>
+        <div class="carousel_btn-box">
+          <a class="carousel-control-prev" href="#carouselExample2Controls" role="button" data-slide="prev">
+            <span>
+              <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExample2Controls" role="button" data-slide="next">
+            <span>
+              <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section> -->
+  <!-- end client section -->
+
+  <!-- info section -->
+  <section class="info_section ">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="info_contact">
+            <h5>
+              <a href="" class="navbar-brand">
+                <span>
+                  Minics
+                </span>
+              </a>
+            </h5>
+            <p>
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              Address
+            </p>
+            <p>
+              <i class="fa fa-phone" aria-hidden="true"></i>
+              +01 1234567890
+            </p>
+            <p>
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+              demo@gmail.com
+            </p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="info_info">
+            <h5>
+              Information
+            </h5>
+            <p>
+              Eligendi sunt, provident, debitis nemo, facilis cupiditate velit libero dolorum aperiam enim nulla iste
+              maxime corrupti ad illo libero minus.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="info_links">
+            <h5>
+              Useful Link
+            </h5>
+            <ul>
+              <li>
+                <a href="index.html">
+                  Home
+                </a>
+              </li>
+              <li>
+                <a href="about.html">
+                  About
+                </a>
+              </li>
+              <li>
+                <a href="product.html">
+                  Products
+                </a>
+              </li>
+              <li>
+                <a href="why.html">
+                  Why Us
+                </a>
+              </li>
+              <li>
+                <!-- <a href="testimonial.html">
+                  Testimonial
+                </a> -->
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="info_form ">
+            <h5>
+              Newsletter
+            </h5>
+            <form action="">
+              <input type="email" placeholder="Enter your email">
+              <button>
+                Subscribe
+              </button>
+            </form>
+            <div class="social_box">
+              <a href="">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="">
+                <i class="fab fa-twitter-square"></i>
+              </a>
+              <a href="">
+
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="">
+
+                <i class="fab fa-youtube"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- end info_section -->
+
+
+  <!-- footer section -->
+  <footer class="footer_section">
+    <div class="container">
+      <p>
+        &copy; <span id="displayYear"></span> All Rights Reserved By
+        <a href="https://html.design/"> django house </a>
+      </p>
+    </div>
+  </footer>
+  <!-- footer section -->
+
+  <!-- jQery -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=AeS1O53pS0XIj2PQq6VCwSi4eTAhyFwrm04d-I8l8sYKaPdVOOFPq87afE5QgTGDQM6jd-K01_5Mu2p-&currency=USD" data-sdk-integration-source="button-factory"></script>
+
+    <!--salmu code starts from here -->
+
+
+    <!-- <script>
+      console.log('salman')
+      var total_amount = parseFloat('{{order.get_cart_total}}')
+      var inr_total = total_amount/75
+      paypal_sdk.Buttons({
+  
+        // Sets up the transaction when a payment button is clicked
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{
+              amount: {
+                value: inr_total.toFixed(2) // Can reference variables or functions. Example: `value: document.getElementById('...').value`
+              }
+            }]
+          });
+        },
+  
+        // Finalize the transaction after payer approval
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(orderData) {
+            // Successful capture! For dev/demo purposes:
+                
+                var transaction = orderData.purchase_units[0].payments.captures[0];
+                
+            console.log('salman')
+            // When ready to go live, remove the alert and show a success message within this page. For example:
+            // var element = document.getElementById('paypal-button-container');
+            // element.innerHTML = '';
+            // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+            // Or go to another URL:  actions.redirect('thank_you.html');
+               data = {
+                  'order_id': orderData.id,
+              }
+              $.ajax({
+                  
+                  method :"POST",
+                  url: "/order_by_paypal",
+                  data: data,
+                  
+                  success: function (responsec) {
+                      alert("Success");
+                      window.location.href = '/'
+                      
+                      
+                  }
+              });  
+          });
+        }
+      }).render('#paypal-button-container');
+  
+    </script> -->
+
+
+
+
+ 
+    <!--salmu code ends here-->
+
+
+
+
+    <!--wafi code starts from here-->
+  //<script>
+  //  var price = parseFloat('{{ order.get_cart_total }}')
+  //  console.log(price)
+  //  paypal.Buttons({
+//
+  //    // Sets up the transaction when a payment button is clicked
+  //    createOrder: function (data, actions) {
+  //      return actions.order.create({
+  //        purchase_units: [{
+  //          amount: {
+  //            value: parseFloat(price).toFixed(2) // Can reference variables or functions. Example: `value: document.getElementById('...').value`
+  //          }
+  //        }]
+  //      });
+  //    },
+//
+  //    // Finalize the transaction after payer approval
+  //    onApprove: function (data, actions) {
+  //      return actions.order.capture().then(function (orderData) {
+//
+  //        
+  //        // Successful capture! For dev/demo purposes:
+  //        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2))
+  //       // var transaction = orderData.purchase_units[0].payments.captures[0];
+  //        //alert('Transaction ' + transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+//
+  //        // When ready to go live, remove the alert and show a success message within this page. For example:
+  //        // var element = document.getElementById('paypal-button-container');
+  //        // element.innerHTML = '';
+  //        // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+  //        // Or go to another URL:  actions.redirect('thank_you.html');
+  //      });
+  //    }
+  //  }).render('#paypal-button-container');
+//
+  //</script>
+
+  <script>
+    // Render the PayPal button into #paypal-button-container
+    var totalinr = parseFloat('{{ order.get_cart_total }}')
+    var totalamt = totalinr / 75
+    paypal.Buttons({
+            // Set up the transaction
+            createOrder: function (data, actions) {
+                return actions.order.create({
+                    purchase_units: [
+                        {
+                            amount: {
+                                value: parseFloat(totalamt).toFixed(2),
+                            },
+                        },
+                    ],
+                });
+            },
+
+            onApprove: function (data, actions) {
+              return actions.order.capture().then(function (orderData) {
+                console.log(
+                  "Capture result",
+                  orderData,
+                  JSON.stringify(orderData, null, 2)
+                );
+                $.ajax({
+                  method: "POST",
+                  url: '{% url "order_by_paypal" %}',
+                  data: {'data':data},
+                  
+                  success: function (responsec) {
+                      Swal.fire({
+                          position: 'top-end',
+                          icon: 'success',
+                          title: 'Your order has been placed',
+                          showConfirmButton: false,
+                          timer: 1500
+                      })
+                      location = '{% url "cosmic" %}';
+                  }
+              });
+              });
+            },
+          })
+          .render("#paypal-button-container");
+
+            // Finalize the transaction
+           
+</script>
+
+
+
+
+  <!--////////////////////////wafi////////////wafirazorpay///////////////-->
+  <!-- <script>
+      // Render the PayPal button into #paypal-button-container
+      var rs_in = parseFloat('{{ order.get_cart_total }}')
+      var total_usd = rs_in / 75
+      paypal
+        .Buttons({
+          // Set up the transaction
+          createOrder: function (data, actions) {
+            return actions.order.create({
+              purchase_units: [
+                {
+                  amount: {
+                    value: parseFloat(total_usd).toFixed(2),
+                  },
+                },
+              ],
+            });
+          },
+    
+          // Finalize the transaction
+          onApprove: function (data, actions) {
+            return actions.order.capture().then(function (orderData) {
+              console.log(
+                "Capture result",
+                orderData,
+                JSON.stringify(orderData, null, 2)
+              );
+              order_place();
+            });
+          },
+        })
+        .render("#paypal-button-container");
+    </script> -->
+
+  <script>
+    $(document).ready(function () {
+
+      $('#rzp-button1').click(function () {
+        var address = $('input[name="address"]:checked').val();
+
+
+        $.ajax({
+          method: 'GET',
+          url: '{% url "razorpay" %}',
+          data: {
+            address: address
+          },
+          success: function (response) {
+            console.log(response)
+
+
+            var options = {
+              "key": "rzp_test_3N7o3ki2CcSEKS", // Enter the Key ID generated from the Dashboard
+              "amount": response.total * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+              "currency": "INR",
+              "name": "Hrishi S Vijayan",
+              "description": "Thank you for buying from us",
+              "image": "https://example.com/your_logo",
+              "handler": function (response) {
+                alert(response.razorpay_payment_id);
+                order_place();
+              },
+              "prefill": {
+                "name": response.name,
+                "email": response.email,
+                "contact": response.phone
+              },
+              "theme": {
+                "color": "#3399cc"
+              }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+
+          }
+        })
+
+      })
+
+    })
+  </script>
+
+  <script>
+    var address = $('input[name="address"]:checked').val();
+    $("#proceed").on("click", function (e) {
+      console.log('hello proceed')
+      order_place();
+    });
+    function order_place() {
+      alert("Michu")
+      var payment = $('input[name="payment"]:checked').val();
+      var address = $('input[name="address"]:checked').val();
+      $.ajax({
+        type: "POST",
+        url: "{% url 'proceed' %}",
+        data: {
+          payment: payment,
+          address: address,
+          csrfmiddlewaretoken: "{{ csrf_token }}",
+        },
+        dataType: "json",
+        success: function (response) {
+          location = '{% url "home" %}';
+        },
+      });
+
+    }
+
+    $("input[type=radio][name=address]").change(function () {
+      var id = "#" + $(this).val();
+      var html = "<h3>SELECTED ADDRESS</h3>" + $(id).html();
+      $(".selected").html(html);
+      $(".selected input").remove();
+    });
+
+    $("input[type=radio][name=payment]").click(function () {
+      var address = $('input[name="address"]:checked').val();
+      var id = "div" + $(this).val();
+    //  if (address != undefined) {
+    //    if ($("#div_COD").hasClass("d-block")) {
+    //      var element = document.getElementById("div_COD");
+    //      element.classList.toggle("d-block");
+    //      element.classList.toggle("d-none");
+    //    }
+    //    if ($("#div_PayPal").hasClass("d-block")) {
+    //      var element = document.getElementById("div_PayPal");
+    //      element.classList.toggle("d-block");
+    //      element.classList.toggle("d-none");
+    //    }
+    //    if ($("#div_RazorPay").hasClass("d-block")) {
+    //      var element = document.getElementById("div_RazorPay");
+    //      element.classList.toggle("d-block");
+    //      element.classList.toggle("d-none");
+    //    }
+    //    var element = document.getElementById(_id);
+    //    element.classList.toggle("d-block");
+    //    element.classList.toggle("d-none");
+    //  } else {
+    //    alert("please select address");
+    //  }
+    });
+  </script>
+
+  <!--////////////////////////wafi razor pay over//////////////////////////-->
+
+
+  <script src="{% static 'admin/js/html2pdf.bundle.js'%}"></script>
+  
+  <script>
+  
+    document.getElementById('topdf').onclick = function() {
+      var element = document.getElementById('salestable');
+      var date = new Date().toISOString().slice(0,19);
+      var opt = {
+        margin:     1,
+        filename: 'Salesreport' +date + '.pdf',
+        image: { type: 'jpeg', quality: 0.98},
+        html2canvas: { scale: 2},
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait'}
+  
+      }
+      
+      html2pdf(element, opt)
+  
+    };
+  </script>
+
+
+  {% endblock %}

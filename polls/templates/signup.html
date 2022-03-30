@@ -1,0 +1,86 @@
+
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<style>
+    body {
+        background-color: #6a11cb!important;
+        color: brown !important;
+    }
+</style>
+
+
+
+<!-- main -->
+<div class="main-w3layouts wrapper">
+    <h1 style="color: white;">Welcome to Cosmic</h1>
+    <div class="main-agileinfo">
+        <div class="agileits-top">
+            <form action="#" method="POST">
+                {% csrf_token %}
+                <input class="text" type="text"  placeholder="Username"  name="username" required="">
+                <p class="text-danger ms-5 ps-5 mb-0 pb-0">{{uname}}</p>
+                <input class="text email" type="email" placeholder="Email" name="email" required="">
+                <p class="text-danger ms-5 ps-5 mb-0 pb-0">{{umail}}</p>
+                <input class="text phone " style="margin-bottom: 20px;" type="text" name="phone" placeholder="Phone Number" required="">
+                <input class="text" type="password" name="password" placeholder="Password" required="">
+                <p class="text-danger ms-5 ps-5 mb-0 pb-0">{{ upass }}</p>
+                <input class="text w3lpass" type="password" name="confirm" placeholder="Confirm Password" required="">
+                <div class="wthree-text">
+                    <label class="anim">
+							<input type="checkbox" class="checkbox" required="">
+							<span>I Agree To The Terms & Conditions</span>
+						</label>
+                    <div class="clear"> </div>
+                </div>
+                <input id="signupbish" type="submit" value="SIGNUP">
+            </form>
+            <p>Don't have an account? <a href="{% url 'login' %}"> Login Now!</a></p>
+        </div>
+    </div>
+    <!-- copyright -->
+    <div class="colorlibcopy-agile">
+        <!-- <p>© 2018 Colorlib Signup Form. All rights reserved | Design by <a href="https://colorlib.com/" target="_blank">Colorlib</a></p> -->
+    </div>
+    <!-- //copyright -->
+    <ul class="colorlib-bubbles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<!-- //main -->
+
+<script>
+</script>
+
+
+
+{%endblock %}

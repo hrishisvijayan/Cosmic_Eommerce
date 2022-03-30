@@ -1,0 +1,564 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="hero_area">
+  <!-- header section strats -->
+  <header class="header_section">
+    <div class="header_top">
+      <div class="container-fluid">
+        <div class="top_nav_container">
+          <div class="contact_nav">
+            <a href="">
+              <i class="fa fa-phone" aria-hidden="true"></i>
+              <span>
+                Call : +01 123455678990
+              </span>
+            </a>
+            <a href="">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+              <span>
+                Email : django@gmail.com
+              </span>
+            </a>
+          </div>
+          <from class="search_form">
+            <input type="text" class="form-control" placeholder="Search here...">
+            <button class="" type="submit">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </from>
+          <div class="user_option_box">
+            <a href="{% url 'logout' %}" class="account-link">
+              <i class="fa fa-user" aria-hidden="true"></i>
+              <span>
+                logout
+              </span>
+            </a>
+            <a href="" class="cart-link">
+              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+              <span>
+                Cart
+              </span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="header_bottom">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="index.html">
+            <span>
+              COSMICS
+            </span>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ">
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'cosmic' %}">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <!-- <li class="nav-item">
+                <a class="nav-link" href="#about_section"> About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#products">Products</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#why">Why Us</a>
+              </li> -->
+              <li class="nav-item">
+                <!-- <a class="nav-link" href="testimonial.html">Testimonial</a> -->
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!--cart section start here-->
+  <div class="container my-5 ">
+    <div class="cart container-fluid m-0 p-3 mx-auto w-50">
+      <div class="cart-top d-flex justify-content-between p-3 " style="height: fit-content;">
+        <div>
+         <a href="{% url 'user_payment' %}">  <h2 class="cart-top-title p-0">Checkout</h2>   </a> 
+        </div>
+        <div>
+          Quantity
+        </div>
+        <div class="cart-top-info"> items </div>
+      </div>
+
+      <div class="cartcontent ">
+        
+        {% for item in itemss %}
+        <div class="d-flex justify-content-between p-3 " id="{{ item.product.id }}">   <!--here dont put item.id because it is different and we should gi-->
+        <div class="cart-item col-lg-5" >
+          <span class="cart-item-pic">
+            <img src="{{ item.product.image1.url }}">
+          </span>
+           {{ item.product.name }}
+          <span class="cart-item-desc"> Description </span>
+          <span class="cart-item-price"> {{ item.product.last_price }} </span>
+          {% if user.is_authenticated %}
+          <a href="{% url 'remove_order' item.id %}" onclick="return two(this,event)"> <button style="border-radius: 20px; background-color: yellow;"  >Remove</button> </a>
+          {% endif %}
+        </div>
+
+        <div>
+
+
+            <!-- <div id="app bg-dark">
+            <div class="wrapper d-flex">
+                  <button class="btn btn--minus" @click="changeCounter('-1')" type="button" name="button">
+                  -
+                  </button>
+                  <span>{{ item.quantity }}</span> -->
+                  <!-- <input class="quantity w-25" type="text" name="name" :value="counter" > -->
+                  <!-- <button class="btn btn--plus" @click="changeCounter('1')" type="button" name="button">
+                    +
+                  </button>
+              </div> -->
+
+
+
+
+          <!-- <div class="d-flex ml-3">
+            <button
+              class="update btn btn-small rounded-circle mr-3 btn-outline-secondary"
+              value="{{item.product.id}}"
+              data-action="decrement"
+            >
+              &#9866;
+            </button>
+            <div class="mt-1 quantity">{{item.quantity}}</div>
+            <button
+              class="update btn btn-small rounded-circle ml-3 btn-outline-secondary"
+              value="{{item.product.id}}"
+              data-action="increment"
+            >
+              &#10010;
+            </button>
+          </div> -->
+
+
+
+            <div id="app bg-dark">
+            <div class="wrapper d-flex">
+                  <button style="font-size: 40px; color:aliceblue" class="update-cart btn" @click="changeCounter('-1')" type="button" data-product='{{ item.product.id }}'  data-action="decrement">
+                  -
+                  </button>
+                  <span  style="text-align: center;font-size:30px;margin-top:30px" id="quantity">{{ item.quantity }}</span>        <!--here the class quantity is important in terms of ajax in order  -->
+                  <!-- <input class="quantity w-25" type="text" name="name" :value="counter" > -->
+                  <button style="font-size: 30px; color:aliceblue" class="update-cart btn" @click="changeCounter('1')" type="button" data-product='{{ item.product.id }}'  data-action="increment">
+                    +
+                  </button>
+                </div>
+
+
+        
+          </div>
+        </div>
+        <div>
+          <!-- <a href=""> <button style="border-radius: 20px; background-color: yellow;">Remove</button> </a> -->
+
+        </div>
+      </div>
+      {% endfor %}
+
+        <div class="cart-bottom">
+          Total: ₹ <span id="cart_total" > {{ order.get_cart_total }} </span>
+          {% if user.is_authenticated %}
+          <a href="{% url 'user_payment' %}" class="cart-button">Continue</a>
+          {% else %}
+          <a href="{% url 'login' %}" class="cart-button">Continue</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- end header section -->
+    <!-- slider section -->
+
+
+    <!-- product section -->
+
+
+
+
+    <!-- client section -->
+    <!-- 
+  <section class="client_section layout_padding-bottom">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>
+          What Says Our Customers
+        </h2>
+      </div>
+    </div>
+    <div class="client_container ">
+      <div id="carouselExample2Controls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="container">
+              <div class="box">
+                <div class="detail-box">
+                  <p>
+                    <i class="fa fa-quote-left" aria-hidden="true"></i>
+                  </p>
+                  <p>
+                    It is a long established fact that a reader will be distracted by the readable content of a page
+                    when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
+                    distribution of letters, as opposed to using 'Content here, content here', making it lookIt is a
+                    long established fact that a reader will be distracted by the readable content of a page when
+                    looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
+                    distribution of letters, as opposed to using 'Content here, content here', making it look
+                  </p>
+                </div>
+                <div class="client-id">
+                  <div class="img-box">
+                    <img src="images/client.jpg" alt="">
+                  </div>
+                  <div class="name">
+                    <h5>
+                      James Dew
+                    </h5>
+                    <h6>
+                      Photographer
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="container">
+              <div class="box">
+                <div class="detail-box">
+                  <p>
+                    <i class="fa fa-quote-left" aria-hidden="true"></i>
+                  </p>
+                  <p>
+                    It is a long established fact that a reader will be distracted by the readable content of a page
+                    when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
+                    distribution of letters, as opposed to using 'Content here, content here', making it lookIt is a
+                    long established fact that a reader will be distracted by the readable content of a page when
+                    looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
+                    distribution of letters, as opposed to using 'Content here, content here', making it look
+                  </p>
+                </div>
+                <div class="client-id">
+                  <div class="img-box">
+                    <img src="images/client.jpg" alt="">
+                  </div>
+                  <div class="name">
+                    <h5>
+                      James Dew
+                    </h5>
+                    <h6>
+                      Photographer
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="container">
+              <div class="box">
+                <div class="detail-box">
+                  <p>
+                    <i class="fa fa-quote-left" aria-hidden="true"></i>
+                  </p>
+                  <p>
+                    It is a long established fact that a reader will be distracted by the readable content of a page
+                    when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
+                    distribution of letters, as opposed to using 'Content here, content here', making it lookIt is a
+                    long established fact that a reader will be distracted by the readable content of a page when
+                    looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
+                    distribution of letters, as opposed to using 'Content here, content here', making it look
+                  </p>
+                </div>
+                <div class="client-id">
+                  <div class="img-box">
+                    <img src="images/client.jpg" alt="">
+                  </div>
+                  <div class="name">
+                    <h5>
+                      James Dew
+                    </h5>
+                    <h6>
+                      Photographer
+                    </h6>
+                  </div>
+                </div>
+              </div> -->
+    <!-- </div>
+          </div>
+        </div>
+        <div class="carousel_btn-box">
+          <a class="carousel-control-prev" href="#carouselExample2Controls" role="button" data-slide="prev">
+            <span>
+              <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExample2Controls" role="button" data-slide="next">
+            <span>
+              <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section> -->
+    <!-- end client section -->
+
+    <!-- info section -->
+    <section class="info_section ">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="info_contact">
+              <h5>
+                <a href="" class="navbar-brand">
+                  <span>
+                    Minics
+                  </span>
+                </a>
+              </h5>
+              <p>
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                Address
+              </p>
+              <p>
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                +01 1234567890
+              </p>
+              <p>
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                demo@gmail.com
+              </p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="info_info">
+              <h5>
+                Information
+              </h5>
+              <p>
+                Eligendi sunt, provident, debitis nemo, facilis cupiditate velit libero dolorum aperiam enim nulla iste
+                maxime corrupti ad illo libero minus.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="info_links">
+              <h5>
+                Useful Link
+              </h5>
+              <ul>
+                <li>
+                  <a href="#">
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    Products
+                  </a>
+                </li>
+                <li>
+                  <a href="why.html">
+                    Why Us
+                  </a>
+                </li>
+                <li>
+                  <!-- <a href="testimonial.html">
+                  Testimonial
+                </a> -->
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="info_form ">
+              <h5>
+                Newsletter
+              </h5>
+              <form action="">
+                <input type="email" placeholder="Enter your email">
+                <button>
+                  Subscribe
+                </button>
+              </form>
+              <div class="social_box">
+                <a href="">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="">
+                  <i class="fab fa-twitter-square"></i>
+                </a>
+                <a href="">
+
+                  <i class="fab fa-instagram"></i>
+                </a>
+                <a href="">
+
+                  <i class="fab fa-youtube"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- end info_section -->
+
+
+    <!-- footer section -->
+    <footer class="footer_section">
+      <div class="container">
+        <p>
+          &copy; <span id="displayYear"></span> All Rights Reserved By
+          <a href="https://html.design/"> django house </a>
+        </p>
+      </div>
+    </footer>
+    <!-- footer section -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+        <script>
+        $('.update-cart').on('click',function (e) {
+          if ('{{ user }}' == 'AnonymousUser'){
+            var productId = $(this).data('product')
+      var action = $(this).data('action')
+      console.log('not logged in')
+      if (action == 'increment') {
+        if (cart[productId] == undefined) {
+          cart[productId] = { 'quantity': 1 }
+        } else {
+          cart[productId]['quantity'] += 1
+        }
+      }
+
+      if (action == 'decrement') {
+        cart[productId]['quantity'] -= 1
+
+        if (cart[productId]['quantity'] <= 0) {
+          delete cart[productId];
+        }
+      }
+      document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+      location.reload()
+    }else{
+        var product = $(this).data('product')
+        var action = $(this).data('action')
+		
+
+
+        console.log(product)
+        console.log(action)
+          $.ajax({
+              type : 'GET',
+              url : "{% url 'updatecart' %}",
+              data : {
+                  productId : product,
+                  action : action,
+              },
+              dataType: 'json',
+              success:function(response){
+                var items = response.items
+                var quantity = response.quantity
+                var total = response.total
+                var cart_total = response.cart_total
+                var productId = response.id
+                var cur_stock = response.cur_stock
+        
+                if(quantity == 0){
+                    location.reload();
+                }
+                
+                var total_id = '#' + productId + " #total"          // here the total price of the items inside the order
+                var item_id =  " #items"                           
+                var cart_total_id = " #cart_total"                 // here the whole total is calculated 
+                var quantity_id = '#' + productId + " #quantity"   // here the quantiy is accepted from the above html code with similar manual comment
+               
+                $(total_id).html('$'+total)                        
+                $(item_id).html(items )
+                $(cart_total_id).html('$'+cart_total )
+                $(quantity_id).html(quantity)
+               
+                
+              }
+          });
+        }
+        });
+        </script>
+
+
+
+        <script>
+          function two(url,e) {
+              e.preventDefault()
+              swal({
+                  title: "Are you sure?",
+                  text: "Once removed, you have to again add the item to the cart!",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                .then((willDelete) => {
+                  
+                  if (willDelete) {
+                    
+                    window.location.href= url.href
+               
+      
+                  } else {
+                    swal("your cart item is safe!");
+                  }
+                });
+      
+      
+      }
+      </script>
+
+
+
+
+    <!-- jQery -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="js/bootstrap.js"></script>
+    <!-- custom js -->
+    <script src="js/custom.js"></script>
+
+    <script src="js/main2.js" ></script>
+
+    
+
+    
+
+    {% endblock %}

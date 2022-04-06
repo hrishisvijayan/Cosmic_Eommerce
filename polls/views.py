@@ -561,9 +561,16 @@ def editprofile(request):
     return render(request,'editprofile.html',context)
 
 
-def category(request,id=0):
-    category = Category.objects.get(id=id)
-    items=Product.objects.filter(product_category_id=category)
+def category(request,id='0'):
+    print('this is id',id)
+    if id != '0':
+        print(type(id))
+        print('this is if',id)
+        category = Category.objects.get(id=id)
+        items=Product.objects.filter(product_category_id=category)
+    else:
+        print('this is else',id)
+        items = Product.objects.all()
     return render(request,'cosmic.html',{'products' : items })
 
 
@@ -701,9 +708,6 @@ def addproduct(request,id=0):
 
 
 
-
-
-
 def editproduct(request,id=0):
     if id ==0:
         form=MyProductForm()
@@ -724,6 +728,15 @@ def delete_product(request,id):
     item = Product.objects.get(pk=id)
     item.delete()
     return redirect('productslist')
+
+
+
+
+
+
+
+
+
 
 def remove_order(request,id):
     item = OrderItem.objects.get(pk=id)
@@ -1154,18 +1167,25 @@ def otp_check(request):
 def block(request):
     if request.method == "POST":
         user_id = request.POST.get('id')
-        User.objects.filter(id=user_id).update(status=False)
-        response = {}
+        btn_id = request.POST.get('btnId')
+        user = User.objects.filter(id=user_id)
+        status = [user.status for user in user]
+        userStatus = status[0]
+        if userStatus == True:
+            user.update(status=False)
+        else:
+            user.update(status=True)
+        response = {'status':userStatus,'btn':btn_id}
         return JsonResponse(response)
     return render(request,'home.html')
 
-def unblock(request):
-    if request.method == "POST":
-        user_id = request.POST.get('id')
-        User.objects.filter(id=user_id).update(status=True)
-        response = {}
-        return JsonResponse(response)
-    return render(request,'home.html')
+# def unblock(request):
+#     if request.method == "POST":
+#         user_id = request.POST.get('id')
+#         User.objects.filter(id=user_id).update(status=True)
+#         response = {}
+#         return JsonResponse(response)
+#     return render(request,'home.html')
 
 
 # def addcart(request):
@@ -1307,26 +1327,24 @@ def address(request):
             form.save()
             return redirect('user_payment')
     form=MyAddressForm()
-    return render(request,'user_address.html',{'form' : form})
+    return render(request,'user_address.html',{'form' : form ,'flag' : False })
 
 
 
 def editaddress(request,id=0):
     if id ==0:
-        form=MyProductForm()
+        form=MyAddressForm()
     else:
-        product = Product.objects.get(id=id)
-        form=MyProductForm(instance= product)
-    context={'form':form}
+        address_id = Address.objects.get(id=id)
+        form=MyAddressForm(instance= address_id)
+        flag = 1
+    context={'form':form , 'flag' : flag , 'address_id' : address_id }
     if request.method == 'POST':
-        form = MyProductForm(request.POST,request.FILES,instance=product)  # here instance is given in order to edit the corresponding product 
+        form = MyAddressForm(request.POST,request.FILES,instance=address_id)  # here instance is given in order to edit the corresponding product 
         if form.is_valid():
             form.save()
-            return redirect('addproduct')
-    return render(request,'addproduct.html', context)
-
-
-
+            return redirect('user_payment')
+    return render(request,'user_payment.html', context)
 
 
 
@@ -1793,7 +1811,7 @@ def proceed(request):
 #         return JsonResponse({'status': 'Your order has been Placed Successfully'})
 
 
-#michfunc
+#michfunc the current working model
 @csrf_exempt
 def order_by_paypal(request):
     print("//////////////////////////")
@@ -1825,6 +1843,11 @@ def order_by_paypal(request):
         print(order)
         order.save()
         return JsonResponse({'status': 'Your order has been Placed Successfully'})
+
+
+
+
+
 
 
 
@@ -1961,10 +1984,8 @@ def order_completed(request, id):
 def categories_add(request):
     form = Categories_form()
     if request.method == 'POST' :
-        form =  Categories_form(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('category_management')
+        Category.objects.create(name=request.POST.get('name'))
+        return redirect('category_management')
     context = {'form' : form}
     return render(request, 'category_form.html', context)
 
@@ -2131,7 +2152,6 @@ def export_csv(request):
 
 @never_cache
 def export_excel(request):
-
     response = HttpResponse(content_type='application/ms-excel')
     response['Content-Disposition'] = 'attachment; filename=SalesReport'+str(datetime.datetime.now())+'.xls'
     wb = xlwt.Workbook(encoding='utf-8')
@@ -2141,12 +2161,13 @@ def export_excel(request):
     font_style.font.bold = True
     columns = ['User Id','Name','Order Date','Amount','Payment Type']
     # order_data = Order.objects.filter(payments__status='Completed')
+    
 
     for col_num in range(len(columns)):
         ws.write(row_num,col_num,columns[col_num],font_style)
 
     font_style = xlwt.XFStyle()
-
+    print('this is order data',order_data)
     rows = order_data.values_list(
         # 'id','order_customer','order_date','payment_total_amount','payment_payment_method'
         'id','user__username','date_order','payments__total_amount','payments__payment_method'
@@ -2166,6 +2187,85 @@ def export_excel(request):
 
 
 
+# @never_cache
+# def export_excel(request):
+#     page = 'salesreport'
+#     global order_data
+#     order_data = OrderItem.objects.filter(order__payments__status='Completed')
+#     yr = []
+#     ag = 2000
+#     months = ['January', 'February', 'March','April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+#     for i in range(0,51):
+#         yr.append(ag + i)
+#     if request.method == 'POST':
+#         datestr = request.POST.get('dates')
+#         print('this is datestr',datestr)
+#             #start date
+#         mo = datestr[:2]
+#         da = datestr[3:5]
+#         ye = datestr[6:10]
+#         #enddate
+#         mo1 = datestr[13:15]
+#         da1 = datestr[16:18]
+#         ye1 = datestr[19:]
+#         from_date = ye+'-'+mo+'-'+da
+#         to_date = ye1+'-'+mo1+'-'+da1
+#         print('this is to date',to_date)
+        
+#         year = request.POST.get('year')
+#         month = request.POST.get('month')
+#         print('this is month',month)
+#         m = month
+#         print('this is second month',m)
+#         print('this is from date',from_date)
+#         if  month != '' :
+#             order_data = OrderItem.objects.filter(order__date_order__month=m).filter(order__payments__status='Completed').order_by('order__date_order')
+#         elif  year != '' :
+#             order_data = OrderItem.objects.filter(order__date_order__year=year).filter(order__payments__status='Completed').order_by('order__date_order')
+#         elif from_date != '' and to_date != '' :
+#             order_data = OrderItem.objects.filter(order__date_order__range=[from_date,to_date]).filter(order__payments__status='Completed').order_by('order__date_order')
+
+#     context = {'order_data': order_data, 'years': yr,'page': page,'months':months}
+
+
+
+#     print('this is order data ok',order_data)
+
+#     response = HttpResponse(content_type='application/ms-excel')
+#     response['Content-Disposition'] = 'attachment; filename=SalesReport'+str(datetime.datetime.now())+'.xls'
+#     wb = xlwt.Workbook(encoding='utf-8')
+#     ws = wb.add_sheet('Sales Report')
+#     row_num = 0
+#     font_style = xlwt.XFStyle()
+#     font_style.font.bold = True
+#     columns = ['User Id','Name','Order Date','Amount','Payment Type']
+#     # order_data = Order.objects.filter(payments__status='Completed')
+    
+
+#     for col_num in range(len(columns)):
+#         ws.write(row_num,col_num,columns[col_num],font_style)
+
+#     font_style = xlwt.XFStyle()
+#     print('this is order data',order_data)
+#     rows = order_data.values_list(
+#         # 'id','order_customer','order_date','payment_total_amount','payment_payment_method'
+#         # 'id','user__username','date_order','payments__total_amount','payments__payment_method'
+#         'id','date_added','order','order_id','quantity'
+#     )
+    
+
+#     for row in rows:
+#         row_num = row_num + 1
+
+#         for col_num in range(len(columns)):
+#              ws.write(row_num,col_num,str(row[col_num]),font_style)
+#     wb.save(response)
+
+#     return response
+
+
+
+# user side coupon
 
 def coupon(request):
     if request.method == "POST":
@@ -2192,8 +2292,71 @@ def coupon(request):
         return JsonResponse({'total':order.get_cart_total})
 
 
+# admin side coupon
+
+def coupon_manage(request):
+    coupens = Coupen.objects.all()
+    return render(request, 'admincoupons.html',{'coupons':coupens})
+
+def cpn_add(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        offer = request.POST.get('offer')
+        stock = request.POST.get('stock')
+        Coupen.objects.create(name = name, price = offer, remaining = stock)
+    return redirect('coupon_manage')
+
+def cpn_edit(request):
+    if request.method == "POST":
+        id = request.POST.get('typeId')
+        val = request.POST.get('val')
+        bal = request.POST.get('bal')
+        name = request.POST.get('name')
+        Coupen.objects.filter(id = id).update(price=val, name=name, remaining=bal)
+    return redirect('coupon_manage')
 
 
+def cpn_dlt(request,id):
+    Coupen.objects.filter(id=id).delete()
+    return redirect('coupon_manage')
+
+
+
+
+def add_offer(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        brand_id = request.POST.get('brand')
+        product_id = request.POST.get('product')
+        offer = request.POST.get('offer')
+        if name == 'Category':
+            offerId = Offer.objects.create(name='Category',price=offer)
+            Category.objects.filter(id=brand_id).update(category_off=offerId)
+        elif name == 'Product':
+            offerId = Offer.objects.create(name='Product',price=offer)
+            Product.objects.filter(id=product_id).update(product_off=offerId)
+    return redirect('offer_management')
+
+def delete_Offer(request,id):
+    Offer.objects.filter(id=id).delete()
+    return redirect('offer_management')
+
+def offers(request):
+    if request.method == "POST":
+        id = request.POST.get('typeId')
+        val = request.POST.get('val')
+        Offer.objects.filter(id=id).update(price=val)
+    return redirect('offer_management')
+
+
+def offer_mangement(request):
+    products = Product.objects.all()
+    brands = Category.objects.all()
+    off_products = Product.objects.exclude(product_off=None )
+    off_brands = Category.objects.exclude(category_off=None )
+    for brand in off_brands:
+        brand.items = products.filter(brand=brand).count()
+    return render(request, 'adminoffer.html',{'off_products':off_products,'off_brands':off_brands,'products':products,'brands':brands})
 
 
 

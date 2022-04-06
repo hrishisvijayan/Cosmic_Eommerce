@@ -57,12 +57,12 @@
             </a>
 
 
-            <a href="{% url 'profile' %}" class="cart-link">
+            <!-- <a href="{% url 'profile' %}" class="cart-link">
              
               <span>
                 Profile
               </span>
-            </a>
+            </a> -->
 
 
 
@@ -74,7 +74,7 @@
     <div class="header_bottom">
       <div class="container-fluid">
         <nav class="navbar navbar-expand-lg custom_nav-container ">
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="{% url 'cosmic' %}">
             <span>
               COSMICS
             </span>
@@ -103,8 +103,10 @@
                     Categories
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="{% url 'category' 2 %}">gaming laptop</a></li>
-                    <li><a class="dropdown-item" href="{% url 'category' 3 %}">programming laptop</a></li>
+                    <li><a class="dropdown-item" href="{% url 'category' 4 %}">gaming laptop</a></li>
+                    <li><a class="dropdown-item" href="{% url 'category' 5 %}">programming laptop</a></li>
+                    <li><a class="dropdown-item" href="{% url 'category' 0 %}">all</a></li>
+
               
                   </ul>
                 </div>
@@ -534,7 +536,6 @@
       e.preventDefault()
       alert('hy')
 			if('{{ user }}' == 'AnonymousUser'){
-        alert('ya')
 				var productId = $(this).data('product')
 				var action = 'add'
 				  if (action == 'add'){
@@ -550,7 +551,6 @@
 				  // location.reload()
 				
 			}else{
-        alert('no')
 			  $.ajax({
           type : 'POST',
           url : '{% url "addcart" %}',
@@ -567,24 +567,7 @@
 
 
 
-<!-- <script>                                    
-  $(document).ready(function(){                    // it is used for ajax fuction and here ajax is used to get the id of the item and 
-    $('.add_cart').on('click', function(e){        // pass the id to the back end 
-      e.preventDefault()
-      $.ajax({
-        type : 'POST',
-        url : '{% url "addcart" %}',
-        data : {
-          product_id : $(this).data('product'),            // here the .data('product') section is used in order to have add-product thing from the above html code
-          csrfmiddlewaretoken : '{{ csrf_token }}' ,     // here csrf token is needed because we are using the post method 
-        },                                          // the url 'addcart' is called after having the id value is send to fuction addcart
-      });
-      alert("Product Added to Cart");
-    });
-    console.log('hello')
-    
-  });
-</script> -->
+
 
 
 {% if available %}         <!-- used to emptify cart of guest user -->
@@ -601,7 +584,6 @@
 <script>
 
   $('.fav').click(function(){
-    alert('sreekuttan und')
     console.log('lukman und')
     $.ajax({
       url: '{% url "wishList" %}',

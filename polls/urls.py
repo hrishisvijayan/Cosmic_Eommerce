@@ -27,10 +27,11 @@ urlpatterns = [
     path('product_edit/<str:id>',views.editproduct,name='product_edit'),
     path('delete_product/<str:id>',views.delete_product,name='delete_product'),
     path('block/',views.block,name='block'),
-    path('unblock',views.unblock,name='unblock'),
+    # path('unblock',views.unblock,name='unblock'),
     path('addcart',views.addcart,name='addcart'),
     path('address',views.address,name='address'),
     path('add_address',views.add_address,name='add_address'),
+    path('editaddress/<str:id>',views.editaddress,name='editaddress'),
     path('user_payment',views.user_payment,name='user_payment'),
     path('order_by_paypal',views.order_by_paypal,name='order_by_paypal'),
     path('remove_order/<str:id>',views.remove_order,name='remove_order'),
@@ -65,10 +66,17 @@ urlpatterns = [
     path('usercancelorder/<str:id>',views.usercancelorder,name='usercancelorder'),
     path('user_invoice/<str:id>',views.user_invoice,name='user_invoice'),
     path('coupon',views.coupon,name='coupon'),
+    path('offer_management',views.offer_mangement,name='offer_management'),
+    path('add_offer',views.add_offer,name='add_offer'),
+    path('offers',views.offers,name='offers'),
+    path('delete_offer/<str:id>',views.delete_Offer,name='delete_offer'),
     path('wishList',views.wishList,name='wishList'),
     path('wishItems',views.wishItems,name='wishItems'),
     path('dlt_address',views.dlt_address,name='dlt_address'),
-    
+    path('coupon_manage',views.coupon_manage,name='coupon_manage'),
+    path('cpn_dlt/<str:id>',views.cpn_dlt,name='cpn_dlt'),
+    path('cpn_add',views.cpn_add,name='cpn_add'),
+    path('cpn_edit',views.cpn_edit,name='cpn_edit'),
 
 ]
 

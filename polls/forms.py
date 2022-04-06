@@ -7,6 +7,7 @@ class MyProductForm(forms.ModelForm):
     class Meta:
         model=Product
         fields ='__all__'
+        exclude = ('product_off',)
 
 
     def __init__(self, *args, **kwargs):
@@ -76,7 +77,7 @@ class Categories_form(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(Categories_form, self).__init__(*args, **kwargs)
-        self.fields['category_name'].widget.attrs.update({'class': 'form-control border border-danger py-1 text-dark', 'placeholder':'category_name', 'id':'category_name'})
+        self.fields['name'].widget.attrs.update({'class': 'form-control border border-danger py-1 text-dark', 'placeholder':'category_name', 'id':'category_name'})
     
 
 

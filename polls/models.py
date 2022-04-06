@@ -27,17 +27,19 @@ class Admin(models.Model):
     
 
 
+class Offer(models.Model):
+    TYPE = (('Product','Product'),('Category','Category'))
+    name = models.CharField(max_length=200, choices = TYPE, null=True)
+    price = models.CharField(max_length=200, null=True)
+
+
 
 class Category(models.Model):
-    category_name = models.CharField(max_length=50)
-    category_off = models.IntegerField(default=0)
-
+    name = models.CharField(max_length=200, null=True)
+    category_off = models.ForeignKey(Offer, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return str(self.category_name)
-
-
-    
+        return self.name
 
 
     
@@ -57,7 +59,7 @@ class Product(models.Model):
     image4=models.ImageField(upload_to='images',blank=True)
     stock =models.IntegerField(null=True)
     product_category = models.ForeignKey(Category,on_delete=models.CASCADE,null=True) 
-    product_off = models.IntegerField(default=0)
+    product_off = models.ForeignKey(Offer, on_delete=models.SET_NULL, null=True)
 
     
     def __str__(self):
@@ -66,26 +68,27 @@ class Product(models.Model):
 
     @property
     def offer(self):
-        if self.product_off != 0 or self.product_category.category_off != 0:
-            return self.product_category.category_off if self.product_off < self.product_category.category_off else self.product_off
+        if self.product_off is not None and self.product_category.category_off is not None:
+            if self.product_off.price != 0 or self.product_category.category_off.price != 0:
+                return self.product_category.category_off.price if self.product_off.price < self.product_category.category_off.price else self.product_off.price
+            elif self.product_off.price != 0:
+                return self.product_off.price
+            elif self.product_category.category_off.price != 0:
+                return self.product_category.category_off.price
+        elif self.product_off is not None:
+            return self.product_off.price
+        elif self.product_category.category_off is not None:
+            return self.product_category.category_off.price
+        else:
+            return 0
 
     @property
     def last_price(self):
-        if self.product_off != 0 and self.product_category.category_off != 0:
-            if self.product_off < self.product_category.category_off:
-                price = self.price - (self.price * self.product_category.category_off / 100)
-            else:
-                price = self.price - (self.price * self.product_off / 100)
-        elif self.product_off != 0:
-            price = self.price - (self.price * self.product_off / 100)
-        elif self.product_category.category_off != 0:
-            price = self.price - (self.price * self.product_category.category_off / 100)
+        if self.offer != 0:
+            price = self.price - (float(self.price) * float(self.offer) / 100)
         else:
             price = self.price
         return price
-
-
-
 
 
 

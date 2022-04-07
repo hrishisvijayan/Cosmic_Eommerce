@@ -107,7 +107,7 @@
                   {% for i in category %}  
                     <li><a class="dropdown-item" href="{% url 'category' i.id %}"> {{i.name}} </a></li>
                     
-                    {% endfor %}
+                  {% endfor %}
                     <li><a class="dropdown-item" href="{% url 'category' 0 %}">all</a></li>`
                   </ul>
 
@@ -544,7 +544,6 @@
   $(document).ready(function(){
 		$('.add_cart').click(function(e){
       e.preventDefault()
-      alert('hy')
 			if('{{ user }}' == 'AnonymousUser'){
 				var productId = $(this).data('product')
 				var action = 'add'

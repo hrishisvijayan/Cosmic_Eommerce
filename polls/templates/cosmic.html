@@ -102,13 +102,23 @@
                   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     Categories
                   </button>
+                 
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  {% for i in category %}  
+                    <li><a class="dropdown-item" href="{% url 'category' i.id %}"> {{i.name}} </a></li>
+                    
+                    {% endfor %}
+                    <li><a class="dropdown-item" href="{% url 'category' 0 %}">all</a></li>`
+                  </ul>
+
+                  <!-- <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item" href="{% url 'category' 4 %}">gaming laptop</a></li>
                     <li><a class="dropdown-item" href="{% url 'category' 5 %}">programming laptop</a></li>
                     <li><a class="dropdown-item" href="{% url 'category' 0 %}">all</a></li>
 
               
-                  </ul>
+                  </ul> -->
+
                 </div>
               </li>
 

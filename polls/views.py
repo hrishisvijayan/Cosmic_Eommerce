@@ -495,7 +495,8 @@ def cosmic(request):
         print(user,'............')
         wishList = [item.product.id for item in WishList.objects.filter(user=user)]
     item = Product.objects.all()
-    return render(request,'cosmic.html',{'products' : item,'available' : available,'wishList':wishList})
+    category = Category.objects.all()
+    return render(request,'cosmic.html',{'products' : item,'available' : available,'wishList':wishList ,'category' : category })
 
 
 

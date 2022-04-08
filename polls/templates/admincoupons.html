@@ -1,5 +1,92 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 
+<aside class="navbar-aside" id="offcanvas_aside">
+    <div class="aside-top">
+        <a href="{% url 'admin_home' %}" class="brand-wrap">
+
+            <h1>COSMIC</h1>
+        </a>
+        <div>
+            <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i>
+            </button>
+        </div>
+    </div>
+    <nav>
+        <ul class="menu-aside">
+            <li class="menu-item active">
+                <a class="menu-link" href="{% url 'admin_home' %}"> <i class="icon material-icons md-home"></i>
+                    <span class="text">Dashboard</span>
+                </a>
+            </li>
+
+
+
+            <li class="menu-item">
+                <a class="menu-link" href="{% url 'adminuserslist' %}"> <i class="icon material-icons md-person"></i>
+                    <span class="text">Users</span>
+                </a>
+            </li>
+
+
+
+            <li class="menu-item has-submenu">
+                <a class="menu-link" href="{% url 'productslist' %}"> <i
+                        class="icon material-icons md-shopping_bag"></i>
+                    <span class="text">Products</span>
+                </a>
+                <div class="submenu">
+                    <a href="{% url 'productslist' %}">Product List</a>
+
+
+                </div>
+            </li>
+
+
+            <li class="menu-item">
+                <a class="menu-link" href="{% url 'adminorder' %}"> <i class="icon material-icons md-person"></i>
+                    <span class="text"> Orders </span>
+                </a>
+            </li>
+
+
+            <li class="menu-item">
+                <a class="menu-link" href="{% url 'category_management' %}"> <i
+                        class="icon material-icons md-person"></i>
+                    <span class="text"> Category management </span>
+                </a>
+            </li>
+
+
+
+            <li class="menu-item">
+                <a class="menu-link" href="{% url 'adminsale' %}"> <i class="icon material-icons md-person"></i>
+                    <span class="text"> Sales Report </span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a class="menu-link" href="{% url 'offer_management' %}"> <i class="icon material-icons md-person"></i>
+                    <span class="text"> offer management </span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a class="menu-link" href="{% url 'coupon_manage' %}"> <i class="icon material-icons md-person"></i>
+                    <span class="text"> coupon management </span>
+                </a>
+            </li>
+
+
+        </ul>
+        <hr>
+        <ul class="menu-aside">
+
+        </ul>
+        <br>
+        <br>
+    </nav>
+</aside>
+
 <div class="sa-app__content" style="margin: 100px;" >
     <!-- sa-app__toolbar -->
    
@@ -92,7 +179,6 @@
 <script>
     $(document).ready(function(){
         $('.edit').click(function(){
-            alert('this is coupon edit')
             var id_s = $(this).attr('id')
             var name = $(this).data('name')
             var bal = $(this).data('bal')

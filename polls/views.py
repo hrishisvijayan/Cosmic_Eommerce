@@ -343,11 +343,9 @@ def checkout(request):
 
 @never_cache
 def adminlogin(request):
-    if request.session.has_key('session_name'):
+    if request.user.is_authenticated:
         return redirect('admin2')
-    if request.method == 'GET':
-        return render(request, 'adminlogin.html')
-    else :
+    if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username= username , password = password)
@@ -360,12 +358,13 @@ def adminlogin(request):
                 messages.error(request,"You have no access to admin page")
         else:
             messages.error(request,"Incorrect UserName or Password")
-    return redirect('adminlogin')
+    return render(request, 'adminlogin.html')
 
 
 @never_cache
 def adminlogout(request):
-    logout(request)
+    if request.user.is_authenticated:
+        logout(request)
     return redirect("adminlogin")
 
 
@@ -1815,10 +1814,7 @@ def proceed(request):
 #michfunc the current working model
 @csrf_exempt
 def order_by_paypal(request):
-    print("//////////////////////////")
-    print("1")
-    if request.method == 'POST':
-        print("//////////////////////////2")        
+    if request.method == 'POST':      
         user = request.user
         try:
             order= Order.objects.get(user = user,order_status=False,buyNow=False)
@@ -1827,21 +1823,16 @@ def order_by_paypal(request):
         items = order.orderitem_set.all()
         for item in items :
             ordered = item.quantity
-            print("//////////////////////////3")        
-
             prestocks = item.product.stock
             poststocks = prestocks - ordered
             productid = item.product.id
             Product.objects.filter(id = productid).update(stock = poststocks)
         total_amount = order.get_cart_total
-        print("//////////////////////////2")        
-
         transactionid = order.id
         Payments.objects.get_or_create(order = order,payment_method = 'Paypal',total_amount = total_amount,status = 'Completed', transaction_id = transactionid)
         order.status = 'Placed'
         order.order_status=True
         order.complete=True
-        print(order)
         order.save()
         return JsonResponse({'status': 'Your order has been Placed Successfully'})
 
@@ -1853,43 +1844,32 @@ def order_by_paypal(request):
 
 
 
-
-# @login_required(login_url='/iamadmin')
+@never_cache
+@login_required(login_url='/adminlogin')
 def admin_home(request):
-    print('\n\n\n\nhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh\n\n\n\n\n')
-    products = Product.objects.all()
-
-    placed = Order.objects.filter(status= 'Placed').count()
-    shipped = Order.objects.filter(status= 'shipped').count()
-    completed = Order.objects.filter(status= 'Completed').count()
-    cancelled = Order.objects.filter(status= 'Cancelled').count()
-    out_of_delivery = Order.objects.filter(status= 'Out Of Delevery').count()
-    returned = Order.objects.filter(status= 'Return').count()
-    order_status = [placed,shipped,out_of_delivery,completed,cancelled,returned]
-    print(order_status,'................order status')
-
-    cod = Payments.objects.filter(payment_method = 'COD').count()
-    paypal = Payments.objects.filter(payment_method = 'Paypal').count()
-    razorpay = Payments.objects.filter(payment_method = 'razorpay').count()
-    payment_type = [cod,paypal,razorpay]
-
-    print('......//.........',payment_type)
-    
-    orderitems = OrderItem.objects.filter(order= completed)
-    print(orderitems,'....................payment mehod is here')
-    
-
-    customers = User.objects.all().count()
-    orders = Order.objects.all().count()
-    product_count = Product.objects.all().count()
-    total_revenue = Payments.objects.all().aggregate(Sum('total_amount'))
-   
-   
-    
-    
-    context = {'products':products,'order_status': order_status, 'payment_type': payment_type, 
-     'customers':customers,'orders': orders, 'product_count':product_count,'total_revenue':total_revenue}
-    return render(request,'admin2.html',context)
+    if request.user.is_authenticated:
+        products = Product.objects.all()
+        placed = Order.objects.filter(status= 'Placed').count()
+        shipped = Order.objects.filter(status= 'shipped').count()
+        completed = Order.objects.filter(status= 'Completed').count()
+        cancelled = Order.objects.filter(status= 'Cancelled').count()
+        out_of_delivery = Order.objects.filter(status= 'Out Of Delevery').count()
+        returned = Order.objects.filter(status= 'Return').count()
+        order_status = [placed,shipped,out_of_delivery,completed,cancelled,returned]
+        cod = Payments.objects.filter(payment_method = 'COD').count()
+        paypal = Payments.objects.filter(payment_method = 'Paypal').count()
+        razorpay = Payments.objects.filter(payment_method = 'razorpay').count()
+        payment_type = [cod,paypal,razorpay]
+        orderitems = OrderItem.objects.filter(order= completed)
+        customers = User.objects.all().count()
+        orders = Order.objects.all().count()
+        product_count = Product.objects.all().count()
+        total_revenue = Payments.objects.all().aggregate(Sum('total_amount'))
+        context = {'products':products,'order_status': order_status, 'payment_type': payment_type, 
+        'customers':customers,'orders': orders, 'product_count':product_count,'total_revenue':total_revenue}
+        return render(request,'admin2.html',context)
+    else:
+        return redirect('adminlogin')
 
 
 @never_cache
@@ -2009,13 +1989,14 @@ def categories_update(request,id):
 
 
 # @login_required(login_url='/iamadmin')
-def categories_delete(request):
+def categories_delete(request,id):
     print('...........delete is working')
-    id  = request.GET.get('id')
-    i = Category.objects.get(pk = id)
+    # id  = request.GET.get('id')
+    id = id
+    i = Category.objects.get(id = id)
     i.delete()
-    context = {'form' : "form"}
-    return JsonResponse(context)
+    context = {'categories' : Category.objects.all()}
+    return render(request,'category_management.html',context)
 
 
 

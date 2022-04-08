@@ -69,10 +69,9 @@ class Categories_form(forms.ModelForm):
     class Meta :
         model = Category
         fields = '__all__'
+        exclude = ['category_off']
         labels = {
             'category_name' : 'Category Name'
-
-            
         }
 
     def __init__(self, *args, **kwargs):

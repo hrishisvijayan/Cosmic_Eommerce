@@ -4,7 +4,7 @@
 <div class="conatiner-fluid p-0 m-0">
     <aside class="navbar-aside" id="offcanvas_aside">
         <div class="aside-top">
-            <a href="../../../html/evara/evara-backend/index.html" class="brand-wrap">
+            <a href="{% url 'admin_home' %}" class="brand-wrap">
                 <!-- <img src="../../../html/evara/evara-backend/assets/imgs/theme/logo.svg" class="logo" alt="Evara Dashboard"> -->
                 <h1>COSMIC</h1>
             </a>
@@ -136,7 +136,7 @@
 
                       </td>
                       <td >
-                        <button data-delete="{{i.id}}" class="delete_cat" style="background: none;"><span class="badge-trashed m-1">Delete</span></button>
+                     <a href="{% url 'categories_delete' i.id %}">  <button data-delete="{{i.id}}" class="delete_cat " style="background-color: red;"><span class="badge-trashed m-1">Delete</span></button> </a> 
                         
                       </td>
                 

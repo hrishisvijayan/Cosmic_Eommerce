@@ -2,6 +2,8 @@
 {% load static %}
 {% block content %}
 
+
+
 <div class="container "  style="margin-top: 5%;" >
 <div class="sa-app__content">
     <div id="top" class="sa-app__body px-2 px-lg-4">
@@ -13,7 +15,7 @@
                 <div class="d-flex my-2 align-items-center border shadow py-3 mb-3">
                     <div class="col-1"><strong>ID</strong></div>
                     <div class="col-3"><strong> category </strong></div>
-                    <div class="col-1"><strong>Items</strong></div>
+                    <!-- <div class="col-1"><strong>Items</strong></div> -->
                     <div class="col-1"><strong>Offer</strong></div>
                     <div class="col-3 d-flex justify-content-center  p-2"></div>
                     <div class="col-3 d-flex justify-content-center  p-2"></div>
@@ -22,7 +24,7 @@
                 <div class="d-flex my-2 align-items-center shadow-sm">
                     <div class="col-1">#0{{ brand.id }}</div>
                     <div class="col-3">{{ brand.name }}</div>
-                    <div class="col-1">{{ brand.items }}</div>
+                    <!-- <div class="col-1">{{ brand.items }}</div> -->
                     <div class="col-1">{{ brand.category_off.price }}</div>
                     <div class="col-3 d-flex justify-content-center">
                         <button class="br_btn btn btn-primary w-100" data-val="{{ brand.category_off.price }}"

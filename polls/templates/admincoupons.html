@@ -13,7 +13,7 @@
     </div>
     <nav>
         <ul class="menu-aside">
-            <li class="menu-item active">
+            <li class="menu-item ">
                 <a class="menu-link" href="{% url 'admin_home' %}"> <i class="icon material-icons md-home"></i>
                     <span class="text">Dashboard</span>
                 </a>
@@ -29,16 +29,11 @@
 
 
 
-            <li class="menu-item has-submenu">
+            <li class="menu-item">
                 <a class="menu-link" href="{% url 'productslist' %}"> <i
-                        class="icon material-icons md-shopping_bag"></i>
-                    <span class="text">Products</span>
+                    class="icon material-icons md-shopping_bag"></i>
+                    <span class="text"> Products </span>
                 </a>
-                <div class="submenu">
-                    <a href="{% url 'productslist' %}">Product List</a>
-
-
-                </div>
             </li>
 
 
@@ -70,7 +65,7 @@
                 </a>
             </li>
 
-            <li class="menu-item">
+            <li class="menu-item active">
                 <a class="menu-link" href="{% url 'coupon_manage' %}"> <i class="icon material-icons md-person"></i>
                     <span class="text"> coupon management </span>
                 </a>
@@ -86,12 +81,29 @@
         <br>
     </nav>
 </aside>
+<header class="main-header navbar ">
+    <div class="col-search ">
+      
+    </div>
+    <div class="col-nav ">
+    
+        <ul class="nav ">
+
+            
+            <li> <a href="{% url 'adminlogout' %}"> logout </a> </li>
+        </ul>
+    </div>
+</header>
+
+<h1 style="text-align: center; font-size: large; margin-top: 2%;" > Coupon Management </h1>
 
 <div class="sa-app__content" style="margin: 100px;" >
     <!-- sa-app__toolbar -->
    
     <!-- sa-app__toolbar / end -->
     <!-- sa-app__body -->
+    
+    
     <div id="top" class="sa-app__body px-2 px-lg-4">
         <div class="container pb-6" id="items">
             <div class="row justify-content-center">
@@ -140,7 +152,7 @@
                                                 <label for="name" class="mt-3">Coupon Name</label>
                                                 <input class="form-control my-3" type="text" name="name" placeholder="New Coupon Name" required>
                                                 <div class="d-flex justify-content-around my-3">
-                                                    <div class="col-md-5"><label for="">Offer</label><input type="number" value="0" class="form-control" name="offer"></div>
+                                                    <div class="col-md-5"><label for="">Offer</label><input type="text" value="0" class="form-control" name="offer"></div>
                                                     <div class="col-md-5"><label for="">Remaining</label><input type="number" value="0" class="form-control" name="stock"></div>
                                                 </div>
                                                 <input type="submit" class="offset-4 col-4 btn btn-primary" id="submit-btn">

@@ -13,7 +13,7 @@
     </div>
     <nav>
         <ul class="menu-aside">
-            <li class="menu-item active">
+            <li class="menu-item ">
                 <a class="menu-link" href="{% url 'admin_home' %}"> <i class="icon material-icons md-home"></i>
                     <span class="text">Dashboard</span>
                 </a>
@@ -29,16 +29,11 @@
 
 
 
-            <li class="menu-item has-submenu">
+            <li class="menu-item">
                 <a class="menu-link" href="{% url 'productslist' %}"> <i
-                        class="icon material-icons md-shopping_bag"></i>
-                    <span class="text">Products</span>
+                    class="icon material-icons md-shopping_bag"></i>
+                    <span class="text"> Products </span>
                 </a>
-                <div class="submenu">
-                    <a href="{% url 'productslist' %}">Product List</a>
-                    <!-- <a href="{% url 'productslist' %}">Product grid</a> -->
-
-                </div>
             </li>
 
 

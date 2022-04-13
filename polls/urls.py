@@ -7,6 +7,7 @@ urlpatterns = [
     path('home',views.home,name='home'),
     path('login', views.loginView,name='login'),  #need to edit this login and whole section
     path('signup/',views.signup,name='signup'),
+    path('signup/<str:ref_code>',views.signup,name='ref_code'),
     path('otpsignup',views.otpsignup,name='otpsignup'),
     path('logout',views.userlogout,name='logout'),
     path('',views.cosmic,name='cosmic'),

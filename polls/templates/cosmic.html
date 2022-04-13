@@ -56,13 +56,14 @@
               </span>
             </a>
 
-
-            <!-- <a href="{% url 'profile' %}" class="cart-link">
+            {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}" class="cart-link">
              
               <span>
                 Profile
               </span>
-            </a> -->
+            </a>
+            {% endif %}
 
 
 
@@ -80,9 +81,12 @@
             </span>
           </a>
 
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class=""> </span>
+          </button> -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
           </button>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -262,6 +266,9 @@
                 </button>
               </a>
             </div>
+            {% if item.stock < 1 %}
+            <h2 style="font-size: large; color: red;" > Out of Stock </h2>
+            {% endif %}
            <a href="{% url 'buyNow' item.id %}">  <button class="btn btn-success">Buy Now</button>  </a> 
             <div class="detail-box">
               <h5>
@@ -534,11 +541,13 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>   <!--it is used for ajax link -->
 
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
   $(document).ready(function(){
+    
 		$('.add_cart').click(function(e){
+      Swal.fire('Item added to cart')
       e.preventDefault()
 			if('{{ user }}' == 'AnonymousUser'){
 				var productId = $(this).data('product')

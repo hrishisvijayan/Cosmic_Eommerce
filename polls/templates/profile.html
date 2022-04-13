@@ -54,7 +54,7 @@
       <div class="header_bottom">
         <div class="container-fluid">
           <nav class="navbar navbar-expand-lg custom_nav-container ">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="{% url 'cosmic' %}">
               <span>
                 COSMICS
               </span>
@@ -67,17 +67,9 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav ">
                 <li class="nav-item active">
-                  <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="{% url 'cosmic' %}">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#about_section"> About</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#products">Products</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#why">Why Us</a>
-                </li>
+                
                 <li class="nav-item">
                   <!-- <a class="nav-link" href="testimonial.html">Testimonial</a> -->
                 </li>
@@ -138,7 +130,7 @@
 <div class="container">
   <div class="main-body">
       <div class="row gutters-sm">
-          <div class="col-md-4 mb-3">
+          <!-- <div class="col-md-4 mb-3">
               <div class="card">
                   <div class="card-body">
                     
@@ -162,8 +154,8 @@
                       </li>
                   </ul>
               </div>
-          </div>
-          <div class="col-md-8">
+          </div> -->
+          <div class="col-md-8" style="margin-left: 50px;margin-top: 50px;">
               <div class="card mb-3">
                   <div class="card-body">
                       <div class="row">
@@ -171,7 +163,7 @@
                               <h6 class="mb-0">Full Name</h6>
                           </div>
                           <div class="col-sm-9 text-secondary">
-                              {{person.username}} {{person.username}}
+                              {{person.username}} 
                           </div>
                       </div>
                       <hr>
@@ -193,10 +185,7 @@
                           </div>
                       </div>
                       <hr>
-                    
-                      
-                   
-                    
+
                       <div class="row">
                           <div class="col-sm-12">
                               <a class="btn btn-info" href="{% url 'editprofile' %}">Make any Change</a>
@@ -212,48 +201,48 @@
 
 
 
+<!-- sreekuttan -->
+
+<div class="col-md-7" style="margin-left: 150px; margin-top: 50px;">
+  <div class="card mb-3">
+      <div class="card-body">
+          <div class="row">
+              <div class="col-sm-3">
+                  <h6 class="mb-0">Referal id</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                  {{person.ref_id}} 
+              </div>
+          </div>
+          <!-- <hr>
+          <div class="row">
+              <div class="col-sm-3">
+                  <h6 class="mb-0">Email</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                  {{ person.email }}
+              </div>
+          </div>
+          <hr>
+          <div class="row">
+              <div class="col-sm-3">
+                  <h6 class="mb-0">Mobile</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                  {{person.phone}}
+              </div>
+          </div>
+          <hr> -->
+
+          
+      </div>
+  </div>
+</div>
 
 
+<!-- sreekuttan -->
 
-                   
-                    <!--<div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-3 col-form-label text-white">  </label>
-                        <div class="col-sm-10 text-white" style="text-align: center;">
-                          <span> {{ product.price }} </span>
-                        </div>
-                     </div>
-                     <div>
-                        <!-- <a href=""> <button style="width: 260px;height: 30px; background-color: orange;"> Add to Cart </button> </a>  -->
-                <!----    </div>
-                </div>
-                <div class=" col-md-7"  style="background-color: white; height: 250px; margin-top: 20px; margin-left: 100px;" >
-                    <!-- <form class="pt-5" action="{% url 'editprofile' %}" >
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-2 col-form-label"> name </label>
-                            <div class="col-sm-10 pt-2 ">
-                              <span > {{ person.username }} </span>
-                            </div>
-                          </div>
-                        <div class="form-group row">
-                          <label for="inputEmail3" class="col-sm-2 col-form-label"> email </label>
-                          <div class="col-sm-10 pt-2 ">
-                            <span > {{ person.email}} </span>
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-2 col-form-label"> password </label>
-                            <div class="col-sm-10 pt-2 ">
-                              <span >  {{ person.password }} </span>
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-2 col-form-label"> phone </label>
-                            <div class="col-sm-10 pt-2 ">
-                              <span >  {{ person.phone }} </span>
-                            </div>
-                          </div>
-                          <a href="{% url 'editprofile' %}">  <button style="background-color: yellow;" >  edit  </button>  </a>
-                      </form> -->
+
                 </div>
             </div>
         </div>
@@ -270,11 +259,7 @@
 
 
       </div>  <!--row end-->
-      <div class="btn_box">
-        <a href="" class="view_more-link">
-          View More
-        </a>
-      </div>
+     
     </div>   <!--containerend-->
   </section>
 
@@ -282,94 +267,13 @@
 
   <!-- about section -->
 
-  <section class="about_section" id="about_section">
-    <div class="container-fluid  ">
-      <div class="row">
-        <div class="col-md-5 ml-auto">
-          <div class="detail-box pr-md-3">
-            <div class="heading_container">
-              <h1>
-                We Provide Best For You
-              </h1>
-            </div>
-            <p>
-              Totam architecto rem beatae veniam, cum officiis adipisci soluta perspiciatis ipsa, expedita maiores quae accusantium. Animi veniam aperiam, necessitatibus mollitia ipsum id optio ipsa odio ab facilis sit labore officia!
-              Repellat expedita, deserunt eum soluta rem culpa. Aut, necessitatibus cumque. Voluptas consequuntur vitae aperiam animi sint earum, ex unde cupiditate, molestias dolore quos quas possimus eveniet facilis magnam? Vero, dicta.
-            </p>
-            <a href="">
-              Read More
-            </a>
-          </div>
-        </div>
-        <div class="col-md-6 px-0">
-          <div class="img-box">
-            <img src="{% static 'css/images/lapabout.jpeg' %}"  alt="">
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+
 
   <!-- end about section -->
 
   <!-- why us section -->
 
-  <section class="why_us_section layout_padding" id="why" >
-    <div class="container">
-      <div class="heading_container heading_center">
-        <h2>
-          Why Choose Us
-        </h2>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="box ">
-            <div class="img-box">
-              <img src="{% static 'css/images/w1.png' %}" alt="">
-            </div>
-            <div class="detail-box">
-              <h5>
-                Fast Delivery
-              </h5>
-              <p>
-                variations of passages of Lorem Ipsum available
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="box ">
-            <div class="img-box">
-              <img src="{% static 'css/images/w2.png' %}" alt="">
-            </div>
-            <div class="detail-box">
-              <h5>
-                Free Shiping
-              </h5>
-              <p>
-                variations of passages of Lorem Ipsum available
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="box ">
-            <div class="img-box">
-              <img src="{% static 'css/images/w3.png' %}" alt="">
-            </div>
-            <div class="detail-box">
-              <h5>
-                Best Quality
-              </h5>
-              <p>
-                variations of passages of Lorem Ipsum available
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  
 
   <!-- end why us section -->
 
@@ -617,6 +521,31 @@
   </footer>
   <!-- footer section -->
 
+
+  <style>
+    #click-div {
+      background-color: #111111;
+      color: #fff;
+      height: 50px;
+      font-weight: 600;
+      font-family: inherit;
+      padding-top: 15px;
+      padding-left: 15px;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+  
+    #click-div:hover{
+      cursor: pointer;
+    }
+  
+  </style>
+
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
   <script src="https://unpkg.com/xzoom/dist/xzoom.min.js"></script>
@@ -632,5 +561,17 @@
     $(".xzoom, .xzoom-gallery").xzoom({tint: '#333', Xoffset: 15});
   </script>
  
+  
+  <script>
+   
+     
+    function myFunction() {
+
+      document.getElementById("sectionSree").classList.toggle("d-none");
+    }
+ 
+   
+  
+</script>
 
   {% endblock %}

@@ -15,7 +15,7 @@
         </div>
         <nav>
             <ul class="menu-aside">
-                <li class="menu-item active">
+                <li class="menu-item ">
                     <a class="menu-link" href="{% url 'admin_home' %}"> <i class="icon material-icons md-home"></i>
                         <span class="text">Dashboard</span>
                     </a>
@@ -31,20 +31,15 @@
     
     
     
-                <li class="menu-item has-submenu">
+                <li class="menu-item">
                     <a class="menu-link" href="{% url 'productslist' %}"> <i
-                            class="icon material-icons md-shopping_bag"></i>
-                        <span class="text">Products</span>
+                        class="icon material-icons md-shopping_bag"></i>
+                        <span class="text"> Products </span>
                     </a>
-                    <div class="submenu">
-                        <a href="{% url 'productslist' %}">Product List</a>
-                       
-    
-                    </div>
                 </li>
     
     
-                <li class="menu-item">
+                <li class="menu-item active">
                     <a class="menu-link" href="{% url 'adminorder' %}"> <i class="icon material-icons md-person"></i>
                         <span class="text"> Orders </span>
                     </a>
@@ -86,8 +81,25 @@
             <br>
         </nav>
     </aside>
+    
   
 <!--salmu table starts from here -->
+<header class="main-header navbar ">
+    <div class="col-search ">
+      
+    </div>
+    <div class="col-nav ">
+        <button class="btn btn-icon btn-mobile me-auto " data-trigger="#offcanvas_aside "> <i
+                class="material-icons md-apps "></i> </button>
+        <ul class="nav ">
+
+            
+            <li> <a href="{% url 'adminlogout' %}"> logout </a> </li>
+        </ul>
+    </div>
+</header>
+
+<h1 style="text-align: center; font-size: large; margin-top: 2%; " >  Order Update </h1>
 
 <div class="p-2 m-2 update_order_body text-center" >
     <div class="d-flex ">
@@ -225,8 +237,8 @@
                 {% elif order.status == 'shipped' %}
                 <a href="{% url 'order_ood' order.id %}" type="submit" class="btn btn-success" style="width: 10rem;  margin-left:200px; border-radius: 5%;"">Out Of Delevery</a>
                 {% endif %}
-                <a href="{% url 'adminorder_cancel' order.id %}" class="btn btn-danger" style="width: 10rem;  margin-left:200px; border-radius: 5%;">Cancel Order</a>
-                <a href="{% url 'adminorder' %}" style="width: 10rem; margin-left:200px; border-radius: 5%;" class="btn btn-secondary" >Back to Table</a>
+                <a  href="{% url 'adminorder_cancel' order.id %}" class="btn btn-danger" style="width: 10rem;  margin-left:400px; border-radius: 5%;">Cancel Order</a>
+                <a href="{% url 'adminorder' %}" style="width: 10rem; margin-left:400px; border-radius: 5%;" class="btn btn-secondary" >Back to Table</a>
             </div>
 
         </div>

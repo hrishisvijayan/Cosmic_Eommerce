@@ -223,7 +223,7 @@ def signup(request, **kwargs):
         else:
             if ref_code == None:
                 print('hrr2')
-                user = User.objects.create(username = val3, password = val4, email = val6,phone = val7)
+                user = User.objects.create(username = val3, password = val4, email = val6,phone = val7,ref_id = getRefcode(request))
                 user.save()
                 request.session['bmw'] = val3
                 login(request,user)
@@ -237,10 +237,9 @@ def signup(request, **kwargs):
                 except:
                     pass
                 if user is not None:
-                    print('hrr3')
+                    SignupCoupon.objects.create(name='ReferredBy', user=user, price='8%')
                     user = User.objects.create(username = val3, password = val4, email = val6,phone = val7)
                     user.save()
-                    SignupCoupon.objects.create(name='ReferredBy', user=user, price='8%')
                     username = val3
                     User.objects.filter(username=username).update(ref_id = getRefcode(request))
                     user = User.objects.get(username=username)
@@ -546,7 +545,9 @@ def profile(request):
     user = request.user
     print(user,'this is user')
     person = User.objects.get(username = user)
-    return render(request,'profile.html',{ 'person' : person })
+    form= MyAddressForm()
+    addr = Address.objects.filter(aname=user)
+    return render(request,'profile.html',{ 'person' : person,'addr':addr,'form':form, })
     
 
 def editprofile(request):
@@ -806,6 +807,7 @@ def user_checkout(request):
         # order= Order.objects.get(user=user,complete=False)
 
         try:
+            Order.objects.filter(user=user,order_status=False,buyNow=False).update(coupen=None)
             order= Order.objects.get(user=user,order_status=False,buyNow=False)
             print('......this is order',order)
             items = order.orderitem_set.all()
@@ -1410,6 +1412,7 @@ def user_payment(request):
         print('//////////////check the user',user)
         # items = order.orderitem_set.all()
         try:
+            Order.objects.filter(user=user,order_status=False,buyNow=False).update(coupen=None)
             order = Order.objects.get(user=user,order_status=False)
             print('..............nice try')
             items = order.orderitem_set.all()
@@ -1890,7 +1893,6 @@ def adminorder(request):
 def adminorders_view(request, id):
     order, created = Order.objects.get_or_create(id = id)
     items = order.orderitem_set.all()
-    print(items)
     context = { 'order':order , 'items': items, }
     return render(request,'adminorders_view.html', context)
 
@@ -2325,6 +2327,7 @@ def delete_Offer(request,id):
 
 def offers(request):
     if request.method == "POST":
+        print('juy')
         id = request.POST.get('typeId')
         val = request.POST.get('val')
         Offer.objects.filter(id=id).update(price=val)

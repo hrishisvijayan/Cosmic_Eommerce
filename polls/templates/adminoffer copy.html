@@ -62,13 +62,13 @@
                 </a>
             </li>
 
-            <li class="menu-item active">
+            <li class="menu-item">
                 <a class="menu-link" href="{% url 'offer_management' %}"> <i class="icon material-icons md-person"></i>
                     <span class="text"> offer management </span>
                 </a>
             </li>
 
-            <li class="menu-item ">
+            <li class="menu-item active">
                 <a class="menu-link" href="{% url 'coupon_manage' %}"> <i class="icon material-icons md-person"></i>
                     <span class="text"> coupon management </span>
                 </a>
@@ -101,11 +101,11 @@
 
 <h1 style="text-align: center; font-size: large;margin-top: 2%; " > Offer Management </h1>
 
-<div class="container "  style="margin-top: 5%;margin-left: 22%;" >
+<div class="container "  style="margin-top: 5%;" >
 <div class="sa-app__content">
     <div id="top" class="sa-app__body px-2 px-lg-4">
         <div class="row">
-            <div class="col-lg-5 p-3 example border">
+            <div class="col-lg-6 p-3 example border">
                 <div class="text-center">
                     <h3>Category Offers</h3>
                 </div>
@@ -140,7 +140,7 @@
             </div>
 
 
-            <div class="col-lg-5 p-3 overflow-auto example border">
+            <div class="col-lg-6 p-3 overflow-auto example border">
                 <div class="text-center">
                     <h3>Product Offers</h3>
                 </div>
@@ -176,7 +176,7 @@
                 </div>
                 {% endfor %}
             </div>
-            <div class="accordion col-10" id="accordionExample" >
+            <div class="accordion w-100" id="accordionExample">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingThree">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -197,14 +197,14 @@
                                                 <option value="Category">Category Offer</option>
                                                 <option value="Product">Product Offer</option>
                                             </select></div>
-                                        <div class="col-md-6 text-center" id="notselect" ><span>Please Select Offer
+                                        <div class="col-md-6 text-center" id="notselect"><span>Please Select Offer
                                                 Name</span></div>
-                                        <div class="col-md-6" id="brands"><select class="form-control" name="brand" >
+                                        <div class="col-md-6" id="brands"><select class="form-control" name="brand">
                                                 {% for brand in brands %}
                                                 <option value="{{ brand.id }}">{{ brand.name }}</option>
                                                 {% endfor %}
                                             </select></div>
-                                        <div class="col-md-6" id="products"><select class="form-control" name="product"> 
+                                        <div class="col-md-6" id="products"><select class="form-control" name="product">
                                                 {% for product in products %}
                                                 <option value="{{ product.id }}">{{ product.name }}</option>
                                                 {% endfor %}
@@ -301,7 +301,6 @@
         $('#this_btn').click(function () {
             var typeId = $(this).data('val')
             var val = $('#this_input').val()
-            alert('hy')
             $.ajax({
                 method: "POST",
                 url: "{% url 'offers' %}",

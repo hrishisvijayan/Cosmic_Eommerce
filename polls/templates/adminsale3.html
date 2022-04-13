@@ -2,10 +2,105 @@
 {% load static %}
 {% block content %}
 
+<aside class="navbar-aside" id="offcanvas_aside">
+  <div class="aside-top">
+      <a href="{% url 'admin_home' %}" class="brand-wrap">
+
+          <h4>COSMIC</h4>
+      </a>
+      <div>
+          <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i>
+          </button>
+      </div>
+  </div>
+  <nav>
+      <ul class="menu-aside">
+          <li class="menu-item ">
+              <a class="menu-link" href="{% url 'admin_home' %}"> <i class="icon material-icons md-home"></i>
+                  <span class="text">Dashboard</span>
+              </a>
+          </li>
+
+
+
+          <li class="menu-item">
+              <a class="menu-link" href="{% url 'adminuserslist' %}"> <i class="icon material-icons md-person"></i>
+                  <span class="text">Users</span>
+              </a>
+          </li>
+
+
+
+          <li class="menu-item">
+              <a class="menu-link" href="{% url 'productslist' %}"> <i
+                  class="icon material-icons md-shopping_bag"></i>
+                  <span class="text"> Products </span>
+              </a>
+          </li>
+
+
+          <li class="menu-item">
+              <a class="menu-link" href="{% url 'adminorder' %}"> <i class="icon material-icons md-person"></i>
+                  <span class="text"> Orders </span>
+              </a>
+          </li>
+
+
+          <li class="menu-item">
+              <a class="menu-link" href="{% url 'category_management' %}"> <i
+                      class="icon material-icons md-person"></i>
+                  <span class="text"> Category management </span>
+              </a>
+          </li>
+
+
+
+          <li class="menu-item">
+              <a class="menu-link" href="{% url 'adminsale' %}"> <i class="icon material-icons md-person"></i>
+                  <span class="text"> Sales Report </span>
+              </a>
+          </li>
+
+          <li class="menu-item active">
+              <a class="menu-link" href="{% url 'offer_management' %}"> <i class="icon material-icons md-person"></i>
+                  <span class="text"> offer management </span>
+              </a>
+          </li>
+
+          <li class="menu-item ">
+              <a class="menu-link" href="{% url 'coupon_manage' %}"> <i class="icon material-icons md-person"></i>
+                  <span class="text"> coupon management </span>
+              </a>
+          </li>
+
+
+      </ul>
+      <hr>
+      <ul class="menu-aside">
+
+      </ul>
+      <br>
+      <br>
+  </nav>
+</aside>
 
 <div class="hero_area">
   <!-- header section strats -->
+  <header class="main-header navbar ">
+    <div class="col-search ">
+      
+    </div>
+    <div class="col-nav ">
+    
+        <ul class="nav ">
 
+            
+            <li> <a href="{% url 'adminlogout' %}"> logout </a> </li>
+        </ul>
+    </div>
+</header>
+
+<h1 style="text-align: center; font-size: large; margin-top: 2%;" > Sales Report </h1>
 
   <!--cart section start here-->
   <div class="container my-5 ">
@@ -31,8 +126,11 @@
 
 
 
-<div class="" >
+<div class="col-10" style="margin-left: 250px;" >
   <!-- <h2 class="main-title m-2 ">Sales Table</h2> -->
+ 
+  
+  
 <form action="" method="post"style="background-color:gray;padding: 30px;">
     {% csrf_token %}
     <div class="row m-1 stat-cards">
@@ -92,7 +190,7 @@
 
 </div>
 
-<main class="main users chart-page" id="skip-target">
+<main class="main users chart-page" id="skip-target" style="margin-left: 250px;" >
   <div class="container ">
    
    
@@ -101,10 +199,13 @@
       <div class="col-lg-12" >
           <div class="table users-table table-wrapper"  >
             
-            <div   >
+            
+
+
+            <div>
 
             
-              <table class="posts-table table " style="width:100%" >
+              <table class="posts-table table " style="width:100%" id="salestable2" >
                 <thead >
                   <tr class="users-table-info">
                     <th class="">
@@ -155,13 +256,13 @@
     </div>
     <div class="row m-1 "> 
       <div class="col-lg-4 mb-2" >
-          <a href="{% url 'export_csv' %}" style="width: 100%;" class="btn btn-secondary">Export CSV</a>
+          <a href="{% url 'export_csv' %}" style="width: 100%;" class="btn btn-secondary" onclick="csvBtn(this.href,event)">Export CSV</a>
       </div>
       <div class="col-lg-4 mb-2">
-        <a href="{% url 'export_excel' %}" style="width: 100%;" class="btn btn-secondary">Export Excel</a>
+        <a href="{% url 'export_excel' %}" style="width: 100%;" class="btn btn-secondary" onclick="ExportToExcel('xlsx',event)">Export Excel</a>
       </div>
       <div class="col-lg-4  mb-2">
-      <button id="topdf" style="width: 100%;" class="btn bg-secondary btn-secondary">Export PDF</button>
+      <button id="topdf" style="width: 100%;" class="btn bg-secondary btn-secondary" >Export PDF</button>
     </div>
     
   </div>
@@ -170,23 +271,14 @@
 
 
 <script src="{% static 'admin/js/html2pdf.bundle.js' %}"></script>
-<script type="text/javascript">
-  document.getElementById('topdf').onclick = function () {
-      var element = document.getElementById('salestable');
-      html2pdf(element, {
-          margin: 10,
-          filename: 'SalesReport.pdf',
-          image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2, logging: true, dpi: 192, letterRendering: true },
-          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      });
-  };
-</script>
+
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+
 
 <script>
     $('input[name="dates"]').daterangepicker({
@@ -198,7 +290,39 @@
       useCurrent: false
     }
   );
+
+
+
+  function ExportToExcel(type,e, fn, dl) {
+
+    var rowCount = $("#salestable td").closest("tr").length;
+
+      if(rowCount>0){
+
+        e.preventDefault();
+    var elt = document.getElementById('salestable2');
+    var date = new Date().toISOString().slice(0,19);
+    var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+    return dl ?
+      XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+      XLSX.writeFile(wb, fn || ('SalesReport'+date+'.' + (type || 'xlsx')));
+
+      }else{
+        e.preventDefault()
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'No data in the table!'
+        })
+      }
+    
+ }
+
+
 </script>
+
+
+
 
 
 
@@ -221,7 +345,7 @@
   <script src="https://www.paypal.com/sdk/js?client-id=AeS1O53pS0XIj2PQq6VCwSi4eTAhyFwrm04d-I8l8sYKaPdVOOFPq87afE5QgTGDQM6jd-K01_5Mu2p-&currency=USD" data-sdk-integration-source="button-factory"></script>
 
 
-
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 
@@ -230,7 +354,12 @@
   <script>
   
     document.getElementById('topdf').onclick = function() {
-      var element = document.getElementById('salestable');
+
+      var rowCount = $("#salestable td").closest("tr").length;
+
+      if(rowCount>0){
+
+        var element = document.getElementById('salestable2');
       var date = new Date().toISOString().slice(0,19);
       var opt = {
         margin:     1,
@@ -240,11 +369,42 @@
         jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait'}
   
       }
+
       
       html2pdf(element, opt)
+
+      }else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'No data in the table!'
+        })
+      }
+
   
     };
+
+
+    function csvBtn(url,e){
+
+      var rowCount = $("#salestable td").closest("tr").length;
+
+      if(rowCount>0){
+        location.href=url;
+      }else{
+        e.preventDefault()
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'No data in the table!'
+        })
+      }
+      
+    }
+
+
   </script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   {% endblock %}

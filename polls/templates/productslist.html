@@ -14,7 +14,7 @@
     </div>
     <nav>
         <ul class="menu-aside">
-            <li class="menu-item active">
+            <li class="menu-item ">
                 <a class="menu-link" href="{% url 'admin_home' %}"> <i class="icon material-icons md-home"></i>
                     <span class="text">Dashboard</span>
                 </a>
@@ -30,16 +30,11 @@
 
 
 
-            <li class="menu-item has-submenu">
+            <li class="menu-item active">
                 <a class="menu-link" href="{% url 'productslist' %}"> <i
-                        class="icon material-icons md-shopping_bag"></i>
-                    <span class="text">Products</span>
+                    class="icon material-icons md-shopping_bag"></i>
+                    <span class="text"> Products </span>
                 </a>
-                <div class="submenu">
-                    <a href="{% url 'productslist' %}">Product List</a>
-
-
-                </div>
             </li>
 
 
@@ -88,7 +83,7 @@
 <main class="main-wrap">
     <header class="main-header navbar">
         <div class="col-search">
-            <form class="searchform">
+            <!-- <form class="searchform">
                 <div class="input-group">
                     <input list="search_terms" type="text" class="form-control" placeholder="Search term">
                     <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
@@ -99,7 +94,7 @@
                         <option value="Apple iphone">
                         <option value="Ahmed Hassan">
                     </datalist>
-            </form>
+            </form> -->
         </div>
         <div class="col-nav">
             <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
@@ -110,6 +105,10 @@
             </ul>
         </div>
     </header>
+
+    <h1 style="text-align: center; font-size: large; margin-top: 2%; " > Product List </h1>
+
+
     <section class="content-main">
         
         <div class="card mb-4">
@@ -145,7 +144,15 @@
             <div class="card-body">
 
                
-                <a href="{% url 'addproduct' %}" class="btn btn-primary btn-sm rounded "  > Add New Product  </a>   
+                <a href="{% url 'addproduct' %}" class="btn btn-primary btn-sm rounded m-5 " > Add New Product  </a>  
+                
+                <div class="col d-flex my-3 " >
+                    <div class="col-2" style="font-size: large;"> <h4> Procuct Name </h4> </div>
+                    <div class="col-1" style="margin-left: 110px; font-size: large; " > <h4> Brand </h4> </div>
+                    <div class="col-1" style="margin-left: 60px; font-size: large; " > <h4> RAM </h4> </div>
+                    <div class="col-2" style="margin-left: 40px; font-size: large; " > <h4> Storage </h4> </div>
+                    <div class="col-2" style="margin-left: 1px; font-size: large; " > <h4>  Price </h4> </div>
+                </div>
                 
                 {% for item in product %}
                 <article class="itemlist">
@@ -155,7 +162,7 @@
                                 <input class="form-check-input" type="checkbox">
                             </div>
                         </div>
-                        <div class="col-lg-4 col-sm-4 col-8 flex-grow-1 col-name">
+                        <div class="col-lg-2 col-sm-4 col-2 flex-grow-1 col-name">
                             <a class="itemside" href="#">
                                 <div class="left">
                                     <img src="{{ item.image1.url }}" class="img-sm img-thumbnail" alt="Item">
@@ -166,7 +173,12 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-lg-2 col-sm-2 col-4 col-price"> <div > stock(<span >{{ item.stock }}  </span>)  </div> <span >${{ item.price }}  </span>     </div>
+                        <div class="col-1 me-5"> {{ item.brand }} </div>
+                        <div class="col-1 me-5"> {{ item.RAM }} </div>
+                        <div class="col-1 me-5"> {{ item.storage }} </div>
+
+                        
+                        <div class="col-lg-2 col-sm-2 col-4 col-price  ps-5"> <div > stock(<span >{{ item.stock }}  </span>)  </div> <span > ₹ {{ item.price }}  </span>     </div>
                         <!-- <div class="col-lg-2 col-sm-2 col-4 col-status">
                                 <span class="badge rounded-pill alert-success">Active</span>
                             </div> -->

@@ -19,6 +19,7 @@ from .utils import *
 from django.http import HttpResponse
 import csv
 import xlwt
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
 @never_cache
@@ -628,8 +629,19 @@ def userslist(request):
 
 
 def productslist(request):
+    # products = Product.objects.all()
+    # paginator = Paginator (products, 9)
+    # page = request.GET.get('page')
+    # paged_products = paginator.get_page(page)
+    # productcount=products.count()
+
+
     item = Product.objects.all().order_by('id')
-    return render(request,'productslist.html',{'product' : item })
+    paginator = Paginator (item, 4)
+    page = request.GET.get('page')
+    paged_products = paginator.get_page(page)
+    productcount=item.count()
+    return render(request,'productslist.html',{'product' : paged_products ,})
 
 
 def couponlist(request):

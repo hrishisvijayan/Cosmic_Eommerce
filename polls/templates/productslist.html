@@ -222,6 +222,35 @@
         </div>
     </section>
     <!-- content-main end// -->
+
+
+<nav class="my-4 justify-content-center" aria-label="Page navigation sample">
+                    {% if product.has_other_pages %}
+                    <ul class="pagination mx-auto justify-content-center ">
+                        {% if product.has_previous %}
+                        <li class="page-item"><a class="page-link"
+                                href="?page-{{product.previous_page_number}}">Previous</a></li>
+                        {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                        {% endif %}
+                        {% for i in product.paginator.page_range %}
+                        {% if product.number == i %}
+                        <li class="page-item active"><a class="page-link" href="">{{i}}</a></li>
+                        {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if product.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{product.next_page_number}}">Next</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                        {% endif %}
+                    </ul>
+                    {% endif %}
+                </nav>
+                <br><br><br>
+
     <footer class="main-footer font-xs">
         <div class="row pb-30 pt-15">
             <div class="col-sm-6">
@@ -276,4 +305,9 @@
 <script src="../../../html/evara/evara-backend/assets/js/vendors/jquery.fullscreen.min.js"></script>
 <!-- Main Script -->
 <script src="../../../html/evara/evara-backend/assets/js/main.js" type="text/javascript"></script>
+
+
+
+
+
 {%endblock %}

@@ -136,7 +136,7 @@ class Order(models.Model):
     user = models.ForeignKey(User,on_delete=models.SET_NULL, null=True)
     address = models.ForeignKey(Address,on_delete=models.SET_NULL, null=True)
     date_order = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length = 200,choices = STATUS, default = 'New', null=True)
+    status = models.CharField(max_length = 200,choices = STATUS, default = 'Placed', null=True)
     order_status = models.BooleanField(null=True,default=False)
     complete = models.BooleanField(null=True,default=False)   #added as an experiment and it is working now
     # payment = models.BooleanField(null=True, default = False)   

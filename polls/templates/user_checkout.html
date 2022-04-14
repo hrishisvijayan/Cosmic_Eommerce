@@ -79,9 +79,9 @@
   </header>
 
   <!--cart section start here-->
-  <div class="container my-5  ">
+  <div class="container-fluid my-5 " >
     {% if itemss %}
-    <div class="cart container-fluid m-0 p-3 mx-auto w-50">
+    <div class="cart container-fluid m-0 p-3 mx-auto w-100" style="max-width: 800px;">
       <div class="cart-top d-flex justify-content-between p-3 " style="height: fit-content;">
         <div>
          <a href="{% url 'user_payment' %}">  <h2 class="cart-top-title p-0">Checkout</h2>   </a> 

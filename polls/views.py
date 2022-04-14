@@ -1430,20 +1430,20 @@ def user_payment(request):
     return render(request,'user_payment.html',context)
 
 
-def checkout(request):
-    if request.user.is_authenticated:
-        user = request.user
-        signupCoupens = user.signupcoupon_set.filter(available = False, proceed=False)
-        for coupen in signupCoupens:
-            SignupCoupon.objects.filter(id=coupen.id).update(available = True)
-        order = Order.objects.get(user=user,order_status=False,buy_now=False)
-        items = order.orderitem_set.all()
-        address = Address.objects.filter(user=user)
-        signupCoupens = user.signupcoupon_set.filter(available = True)
-        coupens = Coupen.objects.filter(remaining__gt=0)
-        return render(request, 'users/checkout.html', {'order':order,'items':items,'address':address,'coupens':coupens, 'signupCoupens':signupCoupens})
-    else:
-        return redirect('email_login')
+# def checkout(request):
+#     if request.user.is_authenticated:
+#         user = request.user
+#         signupCoupens = user.signupcoupon_set.filter(available = False, proceed=False)
+#         for coupen in signupCoupens:
+#             SignupCoupon.objects.filter(id=coupen.id).update(available = True)
+#         order = Order.objects.get(user=user,order_status=False,buy_now=False)
+#         items = order.orderitem_set.all()
+#         address = Address.objects.filter(user=user)
+#         signupCoupens = user.signupcoupon_set.filter(available = True)
+#         coupens = Coupen.objects.filter(remaining__gt=0)
+#         return render(request, 'users/checkout.html', {'order':order,'items':items,'address':address,'coupens':coupens, 'signupCoupens':signupCoupens})
+#     else:
+#         return redirect('email_login')
 
 
 
@@ -1657,7 +1657,9 @@ def proceed(request):
         print('this is payment/////////////////',payment)
         address_id = request.POST.get('address')
         coupen_type = request.POST.get('coupen')[4:]
+        print('this is coupen type',coupen_type)
         coupen_id = request.POST.get('coupen')[:4]
+        print('this is coupen id',coupen_id)
         print('...........this is the payment',payment)
         status = True if str(payment) == 'razorpay' else False
         print('hrrrbef1')

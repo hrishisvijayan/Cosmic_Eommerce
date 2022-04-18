@@ -114,6 +114,8 @@
           <h2 style="text-align: center; color: red;" > Out of Stock </h2>
           {% endif %}
 
+          
+
         </div>
 
         <div>
@@ -128,9 +130,13 @@
                   <button style="font-size: 40px; color:aliceblue" class="update-cart btn" @click="changeCounter('-1')" type="button" data-product='{{ item.product.id }}'  data-action="decrement">
                   -
                   </button>
+                  
                   <span  style="text-align: center;font-size:30px;margin-top:30px" id="quantity">{{ item.quantity }}</span>        <!--here the class quantity is important in terms of ajax in order  -->
                   <!-- <input class="quantity w-25" type="text" name="name" :value="counter" > -->
-                  <button style="font-size: 30px; color:aliceblue" class="update-cart btn" @click="changeCounter('1')" type="button" data-product='{{ item.product.id }}'  data-action="increment">
+                  <button style="font-size: 30px; color:aliceblue" class="update-cart btn" @click="changeCounter('1')" type="button" data-product='{{ item.product.id }}'  data-action="increment" id="{{ item.product.id }}" >
+                    +
+                  </button>
+                  <button style="font-size: 30px; color:aliceblue" class="update-cart btn d-none" @click="changeCounter('1')" type="button" data-product='{{ item.product.id }}'  >
                     +
                   </button>
                 </div>
@@ -145,6 +151,11 @@
         </div>
       </div>
       {% endfor %}
+      
+      
+
+      
+      
 
         <div class="cart-bottom">
           Total: ₹ <span id="cart_total" > {{ order.get_cart_total }} </span>
@@ -282,6 +293,7 @@
     <!-- footer section -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
 
 
         <script>
@@ -315,6 +327,7 @@
 
         console.log(product)
         console.log(action)
+        
           $.ajax({
               type : 'GET',
               url : "{% url 'updatecart' %}",
@@ -323,19 +336,64 @@
                   action : action,
               },
               dataType: 'json',
-              success:function(response){
+          //   success:function(response){   
+          //     var items = response.items
+          //     alert('this is items'+items)
+          //     var quantity = response.quantity
+          //     alert('this is quantity'+quantity)
+          //     var total = response.total
+          //     alert('this is total'+total)
+          //     var cart_total = response.cart_total
+          //     alert('this is cart total'+cart_total)
+          //     var productId = response.id
+          //     alert('this is product id'+productId)
+          //     var cur_stock = response.cur_stock
+          //     alert('this is cur stock'+cur_stock)
+
+
+                success:function(response){
                 var items = response.items
+              //  alert('this is items'+items)
                 var quantity = response.quantity
+              //  alert('this is quantity'+quantity)
                 var total = response.total
+              //  alert('this is total'+total)
                 var cart_total = response.cart_total
+               // alert('this is cart total'+cart_total)
                 var productId = response.id
+               // alert('this is product id'+productId)
                 var cur_stock = response.cur_stock
+               // alert('this is cur stock'+cur_stock)
+                var stock = response.stock
+               // alert('this is real stock'+stock)
+               var flag = response.flag
+
+
+                 
+                  
+                  if(cur_stock < 0){
+                    
+                    $("#{{ item.product.id }}").hide();
+                    $(".update-cart").show();
+
+                    swal("Product Out Of Stock!");
+                  }
+
+                  if(flag == 1){
+                    swal("Product Out Of Stock!");
+                  }
+                 
+                 
+                  
+
+
         
                 if(quantity == 0){
                     location.reload();
                 }
                 
                 var total_id = '#' + productId + " #total"          // here the total price of the items inside the order
+             //   alert('this is total id',total_id)
                 var item_id =  " #items"                           
                 var cart_total_id = " #cart_total"                 // here the whole total is calculated 
                 var quantity_id = '#' + productId + " #quantity"   // here the quantiy is accepted from the above html code with similar manual comment
@@ -380,6 +438,7 @@
       }
       </script>
 
+      
 
 
 

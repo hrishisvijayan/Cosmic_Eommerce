@@ -845,6 +845,8 @@ def user_checkout(request):
 def updatecart(request):
     
     if request.method == 'GET':
+        flag = 0
+        print('udation worked')
         try:
             product_id = None
             product_id = request.GET.get('productId')   # here we get product id from ajax
@@ -857,15 +859,24 @@ def updatecart(request):
             print(product)
             order_item,create = OrderItem.objects.get_or_create(product=product, order=order)
             print('in')
+            item = OrderItem.objects.get(product=product, order=order)
             if str(action) == 'increment':
-                quantity = int(order_item.quantity) + 1
+                print('this is quantity before',order_item.quantity)
+                quantity = int(order_item.quantity)
+                if(order_item.quantity<item.product.stock):
+                    quantity += 1
+                else: flag = 1
+                print("this is quantity",quantity)
                 OrderItem.objects.filter(product=product, order=order).update(quantity=quantity)
             elif str(action) == 'decrement' and order_item.quantity > 1:
                 quantity = int(order_item.quantity) - 1
                 OrderItem.objects.filter(product=product, order=order).update(quantity=quantity)
             # items = order.orderitem_set.all()
             item = OrderItem.objects.get(product=product, order=order)
-            response = {'quantity': quantity,'id':product_id, 'cart_total':order.get_cart_total, 'item_total': item.get_total, 'total_items':order.get_cart_items,'stock':'items.product.stock' }
+            # response = {'quantity': quantity,'id':product_id, 'cart_total':order.get_cart_total, 'item_total': item.get_total, 'total_items':order.get_cart_items,'stock':'items.product.stock' } #this is working thing
+            cur_stock = item.product.stock - quantity
+            print('current stock',cur_stock)
+            response = {'quantity': quantity,'id':product_id, 'cart_total':order.get_cart_total, 'total': item.get_total, 'total_items':order.get_cart_items,'stock': item.product.stock , 'cur_stock' : cur_stock ,'items' : item.order.get_cart_items ,'flag' : flag }
        
             return JsonResponse(response)
         except:
@@ -877,10 +888,6 @@ def updatecart(request):
                 order = []
                 items = {}
             
-
-
-
-
 
 
 
@@ -2357,6 +2364,15 @@ def offer_mangement(request):
         brand.items = products.filter(brand=brand).count()
     return render(request, 'adminoffer.html',{'off_products':off_products,'off_brands':off_brands,'products':products,'brands':brands})
 
+
+def Return(request,id):
+    order = Order.objects.filter(id=id).update(status='Returned')
+    user = request.user
+    order = Order.objects.get(id=id)
+    items=order.orderitem_set.all()
+    context={'order':order,'items':items}
+    return render(request,'user_invoice.html',context)
+    
 
 
 

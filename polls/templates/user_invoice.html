@@ -23,12 +23,12 @@
               </span>
             </a>
           </div>
-          <form class="search_form">
+          <!-- <form class="search_form">
             <input type="text" class="form-control" placeholder="Search here...">
             <button class="" type="submit">
               <i class="fa fa-search" aria-hidden="true"></i>
             </button>
-          </form>
+          </form> -->
           <div class="user_option_box">
             <a href="{% url 'logout' %}" class="account-link">
               <i class="fa fa-user" aria-hidden="true"></i>
@@ -36,7 +36,7 @@
                 logout
               </span>
             </a>
-            <a href="" class="cart-link">
+            <a href="{% url 'user_checkout' %}" class="cart-link">
               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
               <span>
                 Cart
@@ -44,13 +44,13 @@
             </a>
           </div>
         </div>
-
+  
       </div>
     </div>
     <div class="header_bottom">
       <div class="container-fluid">
         <nav class="navbar navbar-expand-lg custom_nav-container ">
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="{% url 'cosmic' %}">
             <span>
               COSMICS
             </span>
@@ -222,7 +222,23 @@
                 </div>
               </div>
 
-           
+              {% if order %}
+              <div>
+                order status : {{ order.status }}
+              </div>
+              {% endif %}
+
+              {% if order.status == 'Completed' %}
+              <div>
+                <a href="{% url 'Return'  order.id %}"> <button> Return </button> </a>
+              </div>
+              {% endif %}
+
+              {% if order.status == 'Returned' %}
+              <div style="color: red;" > 
+                Order Returned
+              </div>
+              {% endif %}
 
 
             </div>
@@ -253,14 +269,6 @@
   </div>
 
 
-
-
-
-
-
-
-
-  
 
   <!-- info section -->
   <section class="info_section ">

@@ -78,6 +78,7 @@ urlpatterns = [
     path('cpn_dlt/<str:id>',views.cpn_dlt,name='cpn_dlt'),
     path('cpn_add',views.cpn_add,name='cpn_add'),
     path('cpn_edit',views.cpn_edit,name='cpn_edit'),
+    path('Return/<str:id>',views.Return,name='Return'),
 
 ]
 

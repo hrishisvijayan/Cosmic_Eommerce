@@ -118,7 +118,7 @@
 
         <div class="col-md-12 p-3">
           <div class="row">
-            <div class="col-lg-8 col-md-12">
+            <div class="col-lg-8 col-md-12" id="GFG" >
               <div class="card mb-4">
                 <div class="card-body">
                   <div class="mb-5 d-flex align-items-center justify-content-between">
@@ -164,7 +164,7 @@
                   </div>
                 </div>
               </div>
-              <div class="card widget" id="invoice_page">
+              <div class="card widget" id="">   
                 <div>
                 <h5 class="card-header">Order Items</h5>
                 <div class="card-body">
@@ -202,6 +202,7 @@
                 </div>
               </div>
               </div>
+              
             </div>
             <div class="col-lg-4 col-md-12 mt-4 mt-lg-0">
               <div class="card mb-4 p-0">
@@ -248,6 +249,9 @@
       </div>
 
     </div>
+    {% if order.status != 'Returned' %}
+    <input type="button" value="print invoice" onclick="printDiv()" class="ms-3" >
+    {% endif %}   
     <!-- ./ content -->
     <script>
 
@@ -393,37 +397,20 @@
     src="https://www.paypal.com/sdk/js?client-id=AeS1O53pS0XIj2PQq6VCwSi4eTAhyFwrm04d-I8l8sYKaPdVOOFPq87afE5QgTGDQM6jd-K01_5Mu2p-&currency=USD"
     data-sdk-integration-source="button-factory"></script>
 
-  <!--salmu code starts from here -->
 
-
+  <script>
+    function printDiv() {
+        var divContents = document.getElementById("GFG").innerHTML;
+        var a = window.open('', '', 'height=500, width=500');
+        a.document.write('<html>');
+        a.document.write('<body > ');
+        a.document.write(divContents);
+        a.document.write('</body></html>');
+        a.document.close();
+        a.print();
+    }
+ </script>
   
-
-
-
-
-
-  <!--salmu code ends here-->
-
-
-
-
-  <!--wafi code starts from here-->
-
- 
-
- 
-
-
-
-  <!--////////////////////////wafi////////////wafirazorpay///////////////-->
-  
-
- 
-
- 
-
-  <!--////////////////////////wafi razor pay over//////////////////////////-->
-
 
 
   <!--///////////////////////////// this is for download print below //////////////-->

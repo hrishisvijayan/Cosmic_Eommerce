@@ -536,12 +536,6 @@ def wishList(request):
 
 
 
-
-
-
-
-
-
 def profile(request):
     user = request.user
     print(user,'this is user')
